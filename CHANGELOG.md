@@ -14,4 +14,6 @@
 - Improved error handling in GitHub API integration
 - Added error page for graceful error handling
 - Added loading state for better user experience
-- Added support for specifying a directory in the GitHub repository 
+- Added support for specifying a directory in the GitHub repository
+- Added Tailwind Typography plugin for better markdown styling
+- Improved markdown rendering configuration 
