@@ -10,4 +10,7 @@
 - Created markdown rendering utility with support for frontmatter
 - Built main page listing all markdown files
 - Created individual post page with markdown rendering
-- Added responsive styling with Tailwind CSS 
+- Added responsive styling with Tailwind CSS
+- Improved error handling in GitHub API integration
+- Added error page for graceful error handling
+- Added loading state for better user experience 
