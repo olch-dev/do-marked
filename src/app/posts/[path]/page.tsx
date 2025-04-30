@@ -20,8 +20,8 @@ export default async function PostPage({ params }: PostPageProps) {
       >
         ← Back to posts
       </Link>
-      <article className="prose prose-lg lg:prose-xl dark:prose-invert max-w-none">
-        <h1>{metadata.title || file.name.replace('.md', '')}</h1>
+      <article className="prose prose-lg lg:prose-xl dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-gray-100">
+        <h1 className="text-4xl font-bold mb-4">{metadata.title || file.name.replace('.md', '')}</h1>
         {metadata.date && (
           <p className="text-gray-600 dark:text-gray-400">{new Date(metadata.date).toLocaleDateString()}</p>
         )}

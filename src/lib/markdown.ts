@@ -15,8 +15,9 @@ export interface ParsedMarkdown {
 
 export async function parseMarkdown(markdown: string): Promise<ParsedMarkdown> {
   const { content, data } = matter(markdown);
+  const rendered = await marked(content);
   return {
-    content: await marked(content),
+    content: rendered,
     metadata: data,
   };
 } 
