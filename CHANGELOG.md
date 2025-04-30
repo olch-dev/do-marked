@@ -16,4 +16,5 @@
 - Added loading state for better user experience
 - Added support for specifying a directory in the GitHub repository
 - Added Tailwind Typography plugin for better markdown styling
-- Improved markdown rendering configuration 
+- Improved markdown rendering configuration
+- Switched to react-markdown for better markdown rendering support 
