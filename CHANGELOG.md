@@ -4,7 +4,7 @@
 
 ### Added
 - Initialized Next.js project with TypeScript and Tailwind CSS
-- Set up project structure for markdown blog viewer
+- Set up project structure for Olch
 - Created README with project documentation
 - Implemented GitHub API integration for fetching markdown files
 - Created markdown rendering utility with support for frontmatter
@@ -13,4 +13,5 @@
 - Added responsive styling with Tailwind CSS
 - Improved error handling in GitHub API integration
 - Added error page for graceful error handling
-- Added loading state for better user experience 
+- Added loading state for better user experience
+- Added support for specifying a directory in the GitHub repository 

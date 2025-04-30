@@ -6,7 +6,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen p-8 max-w-4xl mx-auto">
-      <h1 className="text-4xl font-bold mb-8">Markdown Blog</h1>
+      <h1 className="text-4xl font-bold mb-8">Olch</h1>
       <div className="space-y-4">
         {files.map((file) => (
           <Link

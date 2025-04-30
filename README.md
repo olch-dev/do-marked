@@ -1,22 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Olch
+
+A modern web application that displays and renders markdown files from a GitHub repository.
+
+## Features
+
+- List markdown files from a GitHub repository directory
+- View rendered markdown content with proper formatting
+- Clean and responsive user interface
+- Server-side rendering for optimal performance
+
+## Technology Stack
+
+- Next.js 14 (React framework)
+- Tailwind CSS (Styling)
+- GitHub API (File fetching)
+- Marked (Markdown rendering)
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Run the development server: `npm run dev`
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Configuration
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Set the following environment variables:
+- `GITHUB_OWNER`: GitHub repository owner
+- `GITHUB_REPO`: GitHub repository name
+- `GITHUB_REPO_DIR`: (Optional) Directory in the repository containing markdown files
+- `GITHUB_TOKEN`: (Optional) GitHub personal access token for higher rate limits
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 

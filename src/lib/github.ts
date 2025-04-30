@@ -2,6 +2,7 @@ import { Octokit } from 'octokit';
 
 const GITHUB_OWNER = process.env.GITHUB_OWNER;
 const GITHUB_REPO = process.env.GITHUB_REPO;
+const GITHUB_REPO_DIR = process.env.GITHUB_REPO_DIR || '';
 
 if (!GITHUB_OWNER || !GITHUB_REPO) {
   throw new Error('GITHUB_OWNER and GITHUB_REPO environment variables are required');
@@ -10,6 +11,7 @@ if (!GITHUB_OWNER || !GITHUB_REPO) {
 // We can safely assert these as string since we've checked they exist
 const owner = GITHUB_OWNER as string;
 const repo = GITHUB_REPO as string;
+const repoDir = GITHUB_REPO_DIR as string;
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -29,7 +31,7 @@ export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
     const { data } = await octokit.rest.repos.getContent({
       owner,
       repo,
-      path: '',
+      path: repoDir,
     });
 
     if (!Array.isArray(data)) {
@@ -41,7 +43,7 @@ export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
     );
 
     if (markdownFiles.length === 0) {
-      console.warn('No markdown files found in the repository');
+      console.warn(`No markdown files found in the repository directory: ${repoDir}`);
       return [];
     }
 
@@ -75,7 +77,7 @@ export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
   } catch (error) {
     console.error('Error fetching markdown files:', error);
     if (error instanceof Error && error.message.includes('Not Found')) {
-      throw new Error(`Repository not found: ${owner}/${repo}`);
+      throw new Error(`Repository or directory not found: ${owner}/${repo}/${repoDir}`);
     }
     throw error;
   }
