@@ -4,9 +4,10 @@ describe('Home Page', () => {
     cy.fixture('2025-05-01-sample-post-1.md').as('post1')
     cy.fixture('2025-05-02-sample-post-2.md').as('post2')
     
-    // Visit the page with error handling
+    // Visit the page with error handling and local mode
     cy.visit('/', {
       failOnStatusCode: true,
+      qs: { local: 'true' },
       onBeforeLoad(win) {
         win.onerror = (message, source, lineno, colno, error) => {
           console.error('Error:', message, 'at', source, 'line', lineno, 'col', colno)
