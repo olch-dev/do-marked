@@ -12,6 +12,7 @@ A simple blog that displays markdown files from a GitHub repository in a timelin
 - Local development mode with sample files
 - Virtual scrolling for efficient rendering of large lists
 - Sample data generation for testing
+- Reading time estimates for each post
 
 ## Getting Started
 
@@ -63,6 +64,7 @@ This will create 100 markdown files in `src/sample-files` with:
 - Random labels from a predefined set
 - Consistent content structure
 - Proper frontmatter
+- Reading time estimates
 
 Generated files follow this structure:
 ```markdown
@@ -112,6 +114,7 @@ The application is built with a clear separation of concerns:
    - Extracts dates from filenames and frontmatter
    - Extracts titles from markdown content
    - Extracts labels from frontmatter
+   - Calculates reading time estimates
    - Manages GitHub API rate limits
    - Requires GITHUB_TOKEN for authenticated requests
 

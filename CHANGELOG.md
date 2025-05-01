@@ -1,5 +1,7 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
 ## [Unreleased]
 
 ### Added
@@ -36,6 +38,11 @@
 - Implemented in-memory cache for development
 - Added page revalidation every hour
 - Optimized API calls with caching
+- Added reading time estimates
+  - Calculate based on word count
+  - Display in timeline and post view
+  - Handle markdown syntax and code blocks
+  - Format display text
 
 ### Changed
 - Improved README.md structure and clarity
@@ -65,18 +72,18 @@
 - Optimized GitHub API calls with caching
 - Improved performance with in-memory caching
 - Enhanced page revalidation strategy
-
-## [0.1.0] - 2024-03-20
-
-### Added
-- Initial release
-- Timeline view of markdown files
-- Automatic date extraction from filenames
-- Title extraction from markdown content
-- Label filtering
-- Table of contents for posts
+- Improved timeline layout
+  - Moved reading time to the right side
+  - Placed labels below title
+  - Enhanced spacing and alignment
+- Optimized reading time calculation
+  - Pre-calculate during file loading
+  - Store in file object
+  - Consistent calculation across views
 
 ### Fixed
+- Fixed reading time display in timeline
+- Fixed content parsing for reading time calculation
 - Resolved async Client Component error by properly separating server and client components
 - Fixed invalid component import issues by configuring proper path aliases
 - Fixed markdown header rendering by properly configuring showdown options
@@ -84,6 +91,66 @@
 - Fixed markdown heading and list item styling by properly configuring CSS reset
 - Fixed date handling for files without dates by using January 1st, 1970 as default
 - Fixed label handling to ensure it's always an array 
+
+## [0.5.0] - 2024-03-20
+
+### Added
+- Added virtual scrolling for timeline
+- Added sample data generation script
+- Added label filtering functionality
+- Added table of contents for posts
+
+### Changed
+- Improved performance with windowing
+- Enhanced markdown parsing
+- Updated UI components
+
+## [0.4.0] - 2024-03-19
+
+### Added
+- Added GitHub API integration
+- Added local development mode
+- Added markdown file parsing
+- Added date extraction from filenames
+
+### Changed
+- Improved error handling
+- Enhanced file loading
+- Updated documentation
+
+## [0.3.0] - 2024-03-18
+
+### Added
+- Added Next.js 14 setup
+- Added Tailwind CSS configuration
+- Added basic layout components
+- Added environment configuration
+
+### Changed
+- Improved project structure
+- Enhanced development setup
+- Updated dependencies
+
+## [0.2.0] - 2024-03-17
+
+### Added
+- Added project initialization
+- Added basic documentation
+- Added license file
+- Added git configuration
+
+### Changed
+- Improved README
+- Enhanced project structure
+- Updated documentation
+
+## [0.1.0] - 2024-03-16
+
+### Added
+- Initial project setup
+- Basic project structure
+- Initial documentation
+- License file
 
 ## [Release 5] - Virtual Scrolling and Sample Data
 

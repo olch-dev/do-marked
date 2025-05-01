@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
 import { parseMarkdown, extractHeadings } from './markdown';
+import { calculateReadingTime } from './reading-time';
 
 const { owner, repo, dir, token } = getEnv();
 
@@ -21,6 +22,10 @@ export interface MarkdownFile {
   title: string;
   date: string;
   labels: string[];
+  readingTime: {
+    minutes: number;
+    text: string;
+  };
 }
 
 // Cache duration in seconds (1 hour)
@@ -102,7 +107,8 @@ async function getLocalFiles(): Promise<MarkdownFile[]> {
         content: markdownContent,
         title,
         date,
-        labels: metadata.labels || []
+        labels: metadata.labels || [],
+        readingTime: calculateReadingTime(markdownContent)
       };
     });
 }
@@ -128,7 +134,8 @@ async function getLocalFile(filePath: string): Promise<MarkdownFile> {
     content: markdownContent,
     title,
     date,
-    labels: metadata.labels || []
+    labels: metadata.labels || [],
+    readingTime: calculateReadingTime(markdownContent)
   };
 }
 
@@ -164,7 +171,7 @@ export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
 
           if ('content' in data) {
             const content = Buffer.from(data.content, 'base64').toString('utf-8');
-            const { data: frontmatter } = matter(content);
+            const { data: frontmatter, content: markdownContent } = matter(content);
             
             // Try to get date from frontmatter, then from filename, or use default
             const date = frontmatter.date || extractDateFromFilename(file.name) || '1970-01-01';
@@ -178,10 +185,11 @@ export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
             return {
               name: file.name,
               path: file.path,
-              content,
+              content: markdownContent,
               date,
               title,
               labels,
+              readingTime: calculateReadingTime(markdownContent)
             };
           }
 
@@ -213,7 +221,7 @@ export async function getMarkdownFile(path: string): Promise<MarkdownFile> {
 
     if ('content' in data) {
       const content = Buffer.from(data.content, 'base64').toString('utf-8');
-      const { data: frontmatter } = matter(content);
+      const { data: frontmatter, content: markdownContent } = matter(content);
       
       // Try to get date from frontmatter, then from filename, or use default
       const date = frontmatter.date || extractDateFromFilename(data.name) || '1970-01-01';
@@ -224,10 +232,11 @@ export async function getMarkdownFile(path: string): Promise<MarkdownFile> {
       return {
         name: data.name,
         path: data.path,
-        content,
+        content: markdownContent,
         date,
         title,
         labels: frontmatter.labels || [],
+        readingTime: calculateReadingTime(markdownContent)
       };
     }
 

@@ -40,9 +40,10 @@ interface PostContentProps {
   currentPath: string;
 }
 
-export default function PostContent({ content, files, currentPath }: PostContentProps) {
+export function PostContent({ content, files, currentPath }: PostContentProps) {
   const router = useRouter();
   const [headings, setHeadings] = useState<{ level: number; text: string; id: string }[]>([]);
+  const currentFile = files.find(f => f.path === currentPath);
 
   const currentIndex = useMemo(() => 
     files.findIndex(file => file.path === currentPath),
@@ -78,6 +79,11 @@ export default function PostContent({ content, files, currentPath }: PostContent
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">{currentFile?.title}</h1>
+        <span className="text-sm text-gray-500">{currentFile?.readingTime.text}</span>
+      </div>
+
       <NavigationButtons
         currentIndex={currentIndex}
         totalFiles={files.length}

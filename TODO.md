@@ -18,9 +18,6 @@ This document tracks planned improvements and features for the project.
   - [ ] Search by title
   - [ ] Search by content
   - [ ] Search by labels
-- [ ] Add reading time estimates
-  - [ ] Calculate based on word count
-  - [ ] Display in timeline and post view
 - [ ] Implement dark mode
   - [ ] System preference detection
   - [ ] Manual toggle
@@ -86,7 +83,12 @@ This document tracks planned improvements and features for the project.
 
 ## Completed ✓
 
-_(Move items here when completed)_
+### User Experience
+- [x] Add reading time estimates
+  - [x] Calculate based on word count
+  - [x] Display in timeline and post view
+  - [x] Handle markdown syntax and code blocks
+  - [x] Format display text
 
 ## Notes
 
