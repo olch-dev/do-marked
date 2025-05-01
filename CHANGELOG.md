@@ -32,11 +32,13 @@
 - Fixed component import issues by properly configuring path aliases
 - Updated Next.js configuration to support absolute imports with @ alias
 - Improved component architecture by separating server and client components
-- Switched from react-markdown to showdown for better markdown rendering
+- Switched from react-markdown to showdown for markdown rendering
+- Enhanced showdown configuration for better GitHub-flavored markdown support
 
 ### Fixed
 - Resolved async Client Component error by properly separating server and client components
 - Fixed invalid component import issues by configuring proper path aliases
+- Fixed markdown header rendering by properly configuring showdown options
 
 ## [Unreleased]
 

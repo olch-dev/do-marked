@@ -14,15 +14,28 @@ export default function PostContent({ content, title, date }: PostContentProps) 
   const [htmlContent, setHtmlContent] = useState('');
 
   useEffect(() => {
+    // Enable all features by default
+    showdown.setFlavor('github');
     const converter = new showdown.Converter({
       ghCompatibleHeaderId: true,
-      simplifiedAutoLink: true,
+      parseImgDimensions: true,
       strikethrough: true,
       tables: true,
       tasklists: true,
-      emoji: true,
+      smoothLivePreview: true,
+      prefixHeaderId: false,
+      disableForced4SpacesIndentedSublists: true,
+      ghMentions: true,
       openLinksInNewWindow: true,
+      emoji: true,
+      underline: true,
+      metadata: true,
     });
+    // Set options that need to be explicitly set
+    converter.setOption('simpleLineBreaks', true);
+    converter.setOption('headerLevelStart', 1);
+    converter.setOption('requireSpaceBeforeHeadingText', true);
+    
     const html = converter.makeHtml(content);
     setHtmlContent(html);
   }, [content]);
