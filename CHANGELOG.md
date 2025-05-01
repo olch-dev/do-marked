@@ -43,6 +43,8 @@ All notable changes to this project will be documented in this file.
   - Display in timeline and post view
   - Handle markdown syntax and code blocks
   - Format display text
+- Basic Cypress test for post navigation
+- Local mode support in Cypress tests
 
 ### Changed
 - Improved README.md structure and clarity
@@ -80,6 +82,8 @@ All notable changes to this project will be documented in this file.
   - Pre-calculate during file loading
   - Store in file object
   - Consistent calculation across views
+- Simplified Cypress test to focus on core functionality
+- Added proper waiting for timeline items to render
 
 ### Fixed
 - Fixed reading time display in timeline
