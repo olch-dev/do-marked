@@ -4,7 +4,9 @@ A modern web application that displays and renders markdown files from a GitHub 
 
 ## Features
 
-- List markdown files from a GitHub repository directory
+- List markdown files from a GitHub repository directory in a timeline format
+- Automatic date extraction from filenames and frontmatter
+- Title extraction from markdown content
 - View rendered markdown content with proper formatting
 - Clean and responsive user interface
 - Server-side rendering for optimal performance
@@ -24,6 +26,8 @@ The application is built with a clear separation of concerns:
 1. **GitHub Integration** (`src/lib/github.ts`)
    - Handles authentication using GITHUB_TOKEN
    - Fetches markdown files from the repository
+   - Extracts dates from filenames and frontmatter
+   - Extracts titles from markdown content
    - Manages GitHub API rate limits
    - Requires GITHUB_TOKEN for authenticated requests
 
@@ -89,3 +93,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ 

@@ -33,7 +33,6 @@ export default function PostContent({ content, title, date }: PostContentProps) 
     <main>
       <Link href="/">← Back to posts</Link>
       <article>
-        <h1>{title}</h1>
         {date && <p>{new Date(date).toLocaleDateString()}</p>}
         <div 
           className="markdown-content"

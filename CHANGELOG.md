@@ -21,6 +21,9 @@
 - Comprehensive documentation for environment variables in README.md
 - New `env.ts` utility for centralized environment variable management
 - Added side-by-side view of rendered and raw markdown content
+- Added timeline view for posts with dates
+- Added automatic date extraction from filenames and frontmatter
+- Added title extraction from markdown content
 
 ### Changed
 - Improved README.md structure and clarity
@@ -39,10 +42,14 @@
 - Enhanced main title styling with bold text and proper color contrast
 - Moved markdown rendering to client-side for better performance and reactivity
 - Improved markdown styling by properly configuring CSS reset in globals.css
+- Updated main page to show posts in a timeline format
+- Improved date display with better formatting
+- Enhanced post titles with content-based extraction
 
 ### Fixed
 - Resolved async Client Component error by properly separating server and client components
 - Fixed invalid component import issues by configuring proper path aliases
 - Fixed markdown header rendering by properly configuring showdown options
 - Fixed main title styling to ensure proper bold text display
-- Fixed markdown heading and list item styling by properly configuring CSS reset 
+- Fixed markdown heading and list item styling by properly configuring CSS reset
+- Fixed date handling for files without dates by using January 1st, 1970 as default 
