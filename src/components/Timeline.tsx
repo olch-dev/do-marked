@@ -19,7 +19,7 @@ function TimelineItem({ file, style }: TimelineItemProps) {
   }) : null;
 
   return (
-    <div style={style} className="relative pl-8">
+    <div style={style} className="relative pl-8" data-testid="timeline-item">
       <div className="absolute left-4 top-0 w-3 h-3 rounded-full bg-blue-500"></div>
       <div className="flex gap-4">
         {formattedDate && (
@@ -41,6 +41,7 @@ function TimelineItem({ file, style }: TimelineItemProps) {
                 {file.labels.map(label => (
                   <span
                     key={label}
+                    data-testid="label"
                     className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-600"
                   >
                     {label}
