@@ -16,12 +16,20 @@ describe('Home Page', () => {
   })
 
   it('filters posts by labels', () => {
-    // Click on a label
-    cy.get('[data-testid="label"]').first().click()
-    
-    // Verify that the filtered posts contain the selected label
-    cy.get('[data-testid="timeline-item"]').each(($item) => {
-      cy.wrap($item).should('contain', 'react')
+    // Get the first label and its text
+    cy.get('[data-testid="label"]').first().then(($label) => {
+      const labelText = $label.text().trim()
+      
+      // Click the label
+      cy.wrap($label).click()
+      
+      // Wait for the re-render
+      cy.wait(1000)
+      
+      // Check that all visible timeline items contain the selected label
+      cy.get('[data-testid="timeline-item"]').each(($item) => {
+        cy.wrap($item).should('contain', labelText)
+      })
     })
   })
 }) 
