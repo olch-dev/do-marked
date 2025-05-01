@@ -1,16 +1,60 @@
-# Olch
+# Less is more
 
-A modern web application that displays and renders markdown files from a GitHub repository.
+A simple blog that displays markdown files from a GitHub repository in a timeline format.
 
 ## Features
 
-- List markdown files from a GitHub repository directory in a timeline format
-- Automatic date extraction from filenames and frontmatter
+- Timeline view of markdown files
+- Automatic date extraction from filenames (YYYY-MM-DD)
 - Title extraction from markdown content
-- Label-based filtering of posts
-- View rendered markdown content with proper formatting
-- Clean and responsive user interface
-- Server-side rendering for optimal performance
+- Label filtering
+- Table of contents for posts
+- Local development mode with sample files
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- GitHub API token (for production mode)
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env.local` file with your GitHub token:
+   ```
+   GITHUB_TOKEN=your_github_token
+   ```
+
+### Running the Application
+
+#### Production Mode (GitHub)
+```bash
+npm run dev
+```
+
+#### Local Development Mode
+```bash
+npm run dev -- --local
+```
+
+In local mode, the application will use sample markdown files from the `src/sample-files` directory instead of fetching from GitHub.
+
+## Development
+
+### Adding Sample Files
+
+1. Create markdown files in `src/sample-files`
+2. Files should be named with the format `YYYY-MM-DD-title.md`
+3. The first h1 heading in the file will be used as the title
+
+## License
+
+MIT
 
 ## Technology Stack
 
@@ -44,23 +88,6 @@ The application is built with a clear separation of concerns:
    - Provides type-safe access to configuration
    - Ensures required variables are present
    - Manages GITHUB_TOKEN and other GitHub-related variables
-
-## Getting Started
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Create a `.env.local` file with your GitHub configuration:
-   ```bash
-   # Required
-   GITHUB_OWNER=your-github-username
-   GITHUB_REPO=your-repo-name
-   
-   # Optional
-   GITHUB_REPO_DIR=posts  # Directory in the repository containing markdown files
-   GITHUB_TOKEN=your-github-token  # For higher rate limits
-   ```
-4. Run the development server: `npm run dev`
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## Configuration
 

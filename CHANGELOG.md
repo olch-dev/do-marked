@@ -26,6 +26,9 @@
 - Added title extraction from markdown content
 - Added label-based filtering of posts
 - Added support for labels in markdown frontmatter
+- Local development mode with `--local` flag
+- Sample files support for local development
+- Updated README with local mode documentation
 
 ### Changed
 - Improved README.md structure and clarity
@@ -48,6 +51,18 @@
 - Improved date display with better formatting
 - Enhanced post titles with content-based extraction
 - Updated markdown file format documentation
+- Renamed project from "Olch" to "Less is more"
+- Improved README structure and content
+
+## [0.1.0] - 2024-03-20
+
+### Added
+- Initial release
+- Timeline view of markdown files
+- Automatic date extraction from filenames
+- Title extraction from markdown content
+- Label filtering
+- Table of contents for posts
 
 ### Fixed
 - Resolved async Client Component error by properly separating server and client components

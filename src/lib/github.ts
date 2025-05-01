@@ -1,6 +1,9 @@
 import { Octokit } from 'octokit';
 import { getEnv } from './env';
 import matter from 'gray-matter';
+import fs from 'fs';
+import path from 'path';
+import { parseMarkdown, extractHeadings } from './markdown';
 
 const { owner, repo, dir, token } = getEnv();
 
@@ -15,9 +18,9 @@ export interface MarkdownFile {
   name: string;
   path: string;
   content: string;
+  title: string;
   date: string;
-  title?: string;
-  labels?: string[];
+  labels: string[];
 }
 
 function extractDateFromFilename(filename: string): string | null {
@@ -38,7 +41,45 @@ function extractTitleFromContent(content: string): string | null {
   return null;
 }
 
+let isLocalMode = false;
+
+export function setLocalMode(enabled: boolean) {
+  isLocalMode = enabled;
+}
+
+async function getLocalFiles(): Promise<MarkdownFile[]> {
+  const sampleDir = path.join(process.cwd(), 'src', 'sample-files');
+  const files = fs.readdirSync(sampleDir);
+  
+  return files
+    .filter(file => file.endsWith('.md'))
+    .map(file => {
+      const filePath = path.join(sampleDir, file);
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const { content: markdownContent, metadata } = parseMarkdown(content);
+      const headings = extractHeadings(markdownContent);
+      const title = headings.find(h => h.level === 1)?.text || file.replace('.md', '');
+      
+      // Extract date from filename (YYYY-MM-DD) or use default
+      const dateMatch = file.match(/^(\d{4}-\d{2}-\d{2})/);
+      const date = dateMatch ? dateMatch[1] : '1970-01-01';
+      
+      return {
+        name: file,
+        path: file,
+        content: markdownContent,
+        title,
+        date,
+        labels: metadata.labels || []
+      };
+    });
+}
+
 export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
+  if (isLocalMode) {
+    return getLocalFiles();
+  }
+
   try {
     const { data } = await octokit.rest.repos.getContent({
       owner,
@@ -133,6 +174,7 @@ export async function getMarkdownFile(path: string): Promise<MarkdownFile> {
         content,
         date,
         title,
+        labels: frontmatter.labels || [],
       };
     }
 

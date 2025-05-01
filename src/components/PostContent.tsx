@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import showdown from 'showdown';
 import { MarkdownFile } from '@/lib/github';
+import { extractHeadings } from '@/lib/markdown';
+import TableOfContents from './TableOfContents';
 
 interface PostContentProps {
   content: string;
@@ -31,6 +33,7 @@ export default function PostContent({ content, title, date, previousPost, nextPo
 
   showdown.setFlavor('github');
   const htmlContent = converter.makeHtml(content);
+  const headings = extractHeadings(content);
 
   return (
     <main>
@@ -40,6 +43,7 @@ export default function PostContent({ content, title, date, previousPost, nextPo
       
       <article>
         {date && <p className="text-gray-500 mb-4">{new Date(date).toLocaleDateString()}</p>}
+        <TableOfContents headings={headings} />
         <div 
           className="markdown-content prose max-w-none"
           dangerouslySetInnerHTML={{ __html: htmlContent }} 
