@@ -75,6 +75,31 @@ async function getLocalFiles(): Promise<MarkdownFile[]> {
     });
 }
 
+async function getLocalFile(filePath: string): Promise<MarkdownFile> {
+  const fullPath = path.join(process.cwd(), 'src', 'sample-files', filePath);
+  if (!fs.existsSync(fullPath)) {
+    throw new Error(`File not found: ${filePath}`);
+  }
+  
+  const content = fs.readFileSync(fullPath, 'utf-8');
+  const { content: markdownContent, metadata } = parseMarkdown(content);
+  const headings = extractHeadings(markdownContent);
+  const title = headings.find(h => h.level === 1)?.text || filePath.replace('.md', '');
+  
+  // Extract date from filename (YYYY-MM-DD) or use default
+  const dateMatch = filePath.match(/^(\d{4}-\d{2}-\d{2})/);
+  const date = dateMatch ? dateMatch[1] : '1970-01-01';
+  
+  return {
+    name: filePath,
+    path: filePath,
+    content: markdownContent,
+    title,
+    date,
+    labels: metadata.labels || []
+  };
+}
+
 export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
   if (isLocalMode) {
     return getLocalFiles();
@@ -151,6 +176,10 @@ export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
 }
 
 export async function getMarkdownFile(path: string): Promise<MarkdownFile> {
+  if (isLocalMode) {
+    return getLocalFile(path);
+  }
+
   try {
     const { data } = await octokit.rest.repos.getContent({
       owner,

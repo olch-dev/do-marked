@@ -2,8 +2,8 @@ import { getMarkdownFiles, setLocalMode } from '@/lib/github';
 import Timeline from '@/components/Timeline';
 
 export default async function Home() {
-  // Check if local mode is enabled
-  const isLocalMode = process.argv.includes('--local');
+  // Check if local mode is enabled via environment variable
+  const isLocalMode = process.env.LOCAL_MODE === 'true';
   setLocalMode(isLocalMode);
   
   const files = await getMarkdownFiles();

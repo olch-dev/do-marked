@@ -10,22 +10,39 @@ interface TimelineProps {
 }
 
 export default function Timeline({ files }: TimelineProps) {
-  const [filteredFiles, setFilteredFiles] = useState<MarkdownFile[]>(files);
+  const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
   
+  // Get all unique labels from all files
+  const allLabels = Array.from(
+    new Set(files.flatMap(file => file.labels))
+  ).sort();
+
+  // Filter files that match ALL selected labels
+  const filteredFiles = selectedLabels.length > 0
+    ? files.filter(file => 
+        selectedLabels.every(label => file.labels.includes(label))
+      )
+    : files;
+
   // Sort files by date in descending order (newest first)
   const sortedFiles = [...filteredFiles].sort((a, b) => {
-    const dateA = a.date ? new Date(a.date).getTime() : 0;
-    const dateB = b.date ? new Date(b.date).getTime() : 0;
-    return dateB - dateA;
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
 
   return (
     <div className="relative">
       {/* Label Filter Section */}
       <div className="sticky top-0 z-10 bg-white py-4 mb-8">
-        <LabelFilter 
-          files={files} 
-          onFilterChange={setFilteredFiles} 
+        <LabelFilter
+          labels={allLabels}
+          selectedLabels={selectedLabels}
+          onLabelToggle={(label) => {
+            setSelectedLabels(prev => 
+              prev.includes(label)
+                ? prev.filter(l => l !== label)
+                : [...prev, label]
+            );
+          }}
         />
       </div>
       

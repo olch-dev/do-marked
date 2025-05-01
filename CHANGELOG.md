@@ -29,6 +29,9 @@
 - Local development mode with `--local` flag
 - Sample files support for local development
 - Updated README with local mode documentation
+- Added sample files with overlapping labels
+- Implemented AND condition for label filtering
+- Added date sorting (newest first) to timeline
 
 ### Changed
 - Improved README.md structure and clarity
@@ -53,6 +56,8 @@
 - Updated markdown file format documentation
 - Renamed project from "Olch" to "Less is more"
 - Improved README structure and content
+- Updated label filtering to show posts with ALL selected labels
+- Enhanced timeline sorting to display newest posts first
 
 ## [0.1.0] - 2024-03-20
 

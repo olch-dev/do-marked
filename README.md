@@ -4,10 +4,10 @@ A simple blog that displays markdown files from a GitHub repository in a timelin
 
 ## Features
 
-- Timeline view of markdown files
+- Timeline view of markdown files (newest first)
 - Automatic date extraction from filenames (YYYY-MM-DD)
 - Title extraction from markdown content
-- Label filtering
+- Label filtering (AND condition - shows posts with ALL selected labels)
 - Table of contents for posts
 - Local development mode with sample files
 
@@ -39,7 +39,7 @@ npm run dev
 
 #### Local Development Mode
 ```bash
-npm run dev -- --local
+npm run dev:local
 ```
 
 In local mode, the application will use sample markdown files from the `src/sample-files` directory instead of fetching from GitHub.
@@ -51,6 +51,12 @@ In local mode, the application will use sample markdown files from the `src/samp
 1. Create markdown files in `src/sample-files`
 2. Files should be named with the format `YYYY-MM-DD-title.md`
 3. The first h1 heading in the file will be used as the title
+4. Add labels in the frontmatter:
+   ```yaml
+   ---
+   labels: [label1, label2, label3]
+   ---
+   ```
 
 ## License
 

@@ -1,3 +1,7 @@
+---
+labels: [sample, development, testing, guide]
+---
+
 # Sample Post
 
 This is a sample post to demonstrate the local mode functionality.
