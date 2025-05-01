@@ -37,9 +37,12 @@
 - Enhanced showdown configuration for better GitHub-flavored markdown support
 - Updated post page layout to show both rendered and raw markdown content
 - Enhanced main title styling with bold text and proper color contrast
+- Moved markdown rendering to client-side for better performance and reactivity
+- Improved markdown styling by properly configuring CSS reset in globals.css
 
 ### Fixed
 - Resolved async Client Component error by properly separating server and client components
 - Fixed invalid component import issues by configuring proper path aliases
 - Fixed markdown header rendering by properly configuring showdown options
-- Fixed main title styling to ensure proper bold text display 
+- Fixed main title styling to ensure proper bold text display
+- Fixed markdown heading and list item styling by properly configuring CSS reset 
