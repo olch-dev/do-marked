@@ -1,4 +1,4 @@
-import '@testing-library/cypress/add-commands'
+import './commands'
 
 // Add custom commands here
 Cypress.Commands.add('getByTestId', (selector: string) => {
