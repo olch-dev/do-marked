@@ -9,6 +9,7 @@ interface LabelButtonProps {
 function LabelButton({ label, isSelected, onClick }: LabelButtonProps) {
   return (
     <button
+      data-testid="label-button"
       onClick={onClick}
       className={`px-3 py-1 rounded-full text-sm transition-colors ${
         isSelected
