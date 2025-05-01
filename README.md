@@ -7,6 +7,7 @@ A modern web application that displays and renders markdown files from a GitHub 
 - List markdown files from a GitHub repository directory in a timeline format
 - Automatic date extraction from filenames and frontmatter
 - Title extraction from markdown content
+- Label-based filtering of posts
 - View rendered markdown content with proper formatting
 - Clean and responsive user interface
 - Server-side rendering for optimal performance
@@ -28,6 +29,7 @@ The application is built with a clear separation of concerns:
    - Fetches markdown files from the repository
    - Extracts dates from filenames and frontmatter
    - Extracts titles from markdown content
+   - Extracts labels from frontmatter
    - Manages GitHub API rate limits
    - Requires GITHUB_TOKEN for authenticated requests
 
@@ -69,6 +71,33 @@ The application is built with a clear separation of concerns:
 ### Optional Environment Variables
 - `GITHUB_REPO_DIR`: Directory in the repository containing markdown files (default: root directory)
 - `GITHUB_TOKEN`: GitHub personal access token (optional, for higher rate limits)
+
+## Markdown File Format
+
+Markdown files can include the following frontmatter properties:
+
+```yaml
+---
+title: Your Post Title
+date: YYYY-MM-DD
+labels: [label1, label2, label3]
+---
+```
+
+### Frontmatter Properties
+
+- `title`: The title of your post (optional)
+  - If not provided, it will be extracted from the first h1 heading in the content
+  - If no h1 heading is found, the filename (without .md) will be used
+
+- `date`: The publication date (optional)
+  - If not provided, it will be extracted from the filename if it matches YYYY-MM-DD
+  - If no date is found, January 1st, 1970 will be used as default
+
+- `labels`: Array of labels for filtering (optional)
+  - Labels are displayed next to the post title
+  - Can be used to filter posts in the main view
+  - Example: `labels: [tutorial, markdown, basics]`
 
 ## Error Handling
 

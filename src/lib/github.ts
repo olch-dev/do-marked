@@ -17,6 +17,7 @@ export interface MarkdownFile {
   content: string;
   date: string;
   title?: string;
+  labels?: string[];
 }
 
 function extractDateFromFilename(filename: string): string | null {
@@ -77,12 +78,16 @@ export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
             // Try to get title from frontmatter, then from content
             const title = frontmatter.title || extractTitleFromContent(content) || file.name.replace('.md', '');
             
+            // Ensure labels is always an array
+            const labels = Array.isArray(frontmatter.labels) ? frontmatter.labels : [];
+            
             return {
               name: file.name,
               path: file.path,
               content,
               date,
               title,
+              labels,
             };
           }
 

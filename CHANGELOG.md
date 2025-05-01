@@ -24,6 +24,8 @@
 - Added timeline view for posts with dates
 - Added automatic date extraction from filenames and frontmatter
 - Added title extraction from markdown content
+- Added label-based filtering of posts
+- Added support for labels in markdown frontmatter
 
 ### Changed
 - Improved README.md structure and clarity
@@ -45,6 +47,7 @@
 - Updated main page to show posts in a timeline format
 - Improved date display with better formatting
 - Enhanced post titles with content-based extraction
+- Updated markdown file format documentation
 
 ### Fixed
 - Resolved async Client Component error by properly separating server and client components
@@ -52,4 +55,5 @@
 - Fixed markdown header rendering by properly configuring showdown options
 - Fixed main title styling to ensure proper bold text display
 - Fixed markdown heading and list item styling by properly configuring CSS reset
-- Fixed date handling for files without dates by using January 1st, 1970 as default 
+- Fixed date handling for files without dates by using January 1st, 1970 as default
+- Fixed label handling to ensure it's always an array 

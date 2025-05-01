@@ -1,6 +1,7 @@
 ---
 title: Getting Started with Markdown
 date: 2024-04-30
+labels: [tutorial, markdown, basics]
 ---
 
 # Getting Started with Markdown
