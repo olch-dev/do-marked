@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
+import showdown from 'showdown';
+import { useEffect, useState } from 'react';
 
 interface PostContentProps {
   content: string;
@@ -12,6 +11,22 @@ interface PostContentProps {
 }
 
 export default function PostContent({ content, title, date }: PostContentProps) {
+  const [htmlContent, setHtmlContent] = useState('');
+
+  useEffect(() => {
+    const converter = new showdown.Converter({
+      ghCompatibleHeaderId: true,
+      simplifiedAutoLink: true,
+      strikethrough: true,
+      tables: true,
+      tasklists: true,
+      emoji: true,
+      openLinksInNewWindow: true,
+    });
+    const html = converter.makeHtml(content);
+    setHtmlContent(html);
+  }, [content]);
+
   return (
     <main className="min-h-screen p-8 max-w-4xl mx-auto">
       <Link
@@ -25,14 +40,10 @@ export default function PostContent({ content, title, date }: PostContentProps) 
         {date && (
           <p className="text-gray-600 dark:text-gray-400">{new Date(date).toLocaleDateString()}</p>
         )}
-        <div className="prose prose-lg lg:prose-xl dark:prose-invert max-w-none">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw]}
-          >
-            {content}
-          </ReactMarkdown>
-        </div>
+        <div 
+          className="prose prose-lg lg:prose-xl dark:prose-invert max-w-none"
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        />
       </article>
     </main>
   );

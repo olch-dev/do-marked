@@ -17,7 +17,6 @@
 - Added support for specifying a directory in the GitHub repository
 - Added Tailwind Typography plugin for better markdown styling
 - Improved markdown rendering configuration
-- Switched to react-markdown for better markdown rendering support
 - Environment variable validation with detailed error messages
 - Comprehensive documentation for environment variables in README.md
 - New `env.ts` utility for centralized environment variable management
@@ -33,6 +32,7 @@
 - Fixed component import issues by properly configuring path aliases
 - Updated Next.js configuration to support absolute imports with @ alias
 - Improved component architecture by separating server and client components
+- Switched from react-markdown to showdown for better markdown rendering
 
 ### Fixed
 - Resolved async Client Component error by properly separating server and client components
