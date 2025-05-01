@@ -23,6 +23,38 @@ export interface MarkdownFile {
   labels: string[];
 }
 
+// Cache duration in seconds (1 hour)
+const CACHE_DURATION = 60 * 60;
+
+// In-memory cache for development
+const cache = new Map<string, { data: any; timestamp: number }>();
+
+function getCacheKey(path: string) {
+  return `${owner}/${repo}/${path}`;
+}
+
+async function getCachedContent(path: string) {
+  const cacheKey = getCacheKey(path);
+  const cached = cache.get(cacheKey);
+  
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION * 1000) {
+    return cached.data;
+  }
+
+  const { data } = await octokit.rest.repos.getContent({
+    owner,
+    repo,
+    path,
+  });
+
+  cache.set(cacheKey, {
+    data,
+    timestamp: Date.now(),
+  });
+
+  return data;
+}
+
 function extractDateFromFilename(filename: string): string | null {
   // Try to match YYYY-MM-DD pattern
   const dateMatch = filename.match(/(\d{4}-\d{2}-\d{2})/);
@@ -128,11 +160,7 @@ export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
     const filesWithContent = await Promise.all(
       markdownFiles.map(async (file) => {
         try {
-          const { data } = await octokit.rest.repos.getContent({
-            owner,
-            repo,
-            path: file.path,
-          });
+          const data = await getCachedContent(file.path);
 
           if ('content' in data) {
             const content = Buffer.from(data.content, 'base64').toString('utf-8');
@@ -181,11 +209,7 @@ export async function getMarkdownFile(path: string): Promise<MarkdownFile> {
   }
 
   try {
-    const { data } = await octokit.rest.repos.getContent({
-      owner,
-      repo,
-      path,
-    });
+    const data = await getCachedContent(path);
 
     if ('content' in data) {
       const content = Buffer.from(data.content, 'base64').toString('utf-8');

@@ -10,6 +10,8 @@ A simple blog that displays markdown files from a GitHub repository in a timelin
 - Label filtering (AND condition - shows posts with ALL selected labels)
 - Table of contents for posts
 - Local development mode with sample files
+- Virtual scrolling for efficient rendering of large lists
+- Sample data generation for testing
 
 ## Getting Started
 
@@ -39,10 +41,40 @@ npm run dev
 
 #### Local Development Mode
 ```bash
+# Generate sample data (optional)
+npm run generate:samples
+
+# Start the development server
 npm run dev:local
 ```
 
 In local mode, the application will use sample markdown files from the `src/sample-files` directory instead of fetching from GitHub.
+
+### Sample Data Generation
+
+The project includes a script to generate sample markdown files for testing:
+
+```bash
+npm run generate:samples
+```
+
+This will create 100 markdown files in `src/sample-files` with:
+- Sequential dates (one per day, going back from today)
+- Random labels from a predefined set
+- Consistent content structure
+- Proper frontmatter
+
+Generated files follow this structure:
+```markdown
+---
+title: Sample Post Title
+labels: [react, typescript, nextjs]
+---
+
+# Sample Post Title
+
+Content with various sections...
+```
 
 ## Development
 

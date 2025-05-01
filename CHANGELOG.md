@@ -32,6 +32,10 @@
 - Added sample files with overlapping labels
 - Implemented AND condition for label filtering
 - Added date sorting (newest first) to timeline
+- Added caching for GitHub API responses
+- Implemented in-memory cache for development
+- Added page revalidation every hour
+- Optimized API calls with caching
 
 ### Changed
 - Improved README.md structure and clarity
@@ -58,6 +62,9 @@
 - Improved README structure and content
 - Updated label filtering to show posts with ALL selected labels
 - Enhanced timeline sorting to display newest posts first
+- Optimized GitHub API calls with caching
+- Improved performance with in-memory caching
+- Enhanced page revalidation strategy
 
 ## [0.1.0] - 2024-03-20
 
@@ -77,3 +84,27 @@
 - Fixed markdown heading and list item styling by properly configuring CSS reset
 - Fixed date handling for files without dates by using January 1st, 1970 as default
 - Fixed label handling to ensure it's always an array 
+
+## [Release 5] - Virtual Scrolling and Sample Data
+
+### Added
+- Sample data generation script for testing
+  - Generates 100 markdown files with dates, labels, and content
+  - Random label assignment from predefined set
+  - Sequential dates for easy testing
+  - Consistent content structure with headings, lists, and code blocks
+- Added ts-node for running TypeScript scripts
+- Added date-fns for date formatting
+
+### Fixed
+- Tailwind CSS configuration and setup
+  - Properly configured PostCSS
+  - Added typography plugin for markdown styling
+  - Fixed module resolution issues
+- Removed unsupported Geist font, replaced with Inter
+- Fixed Next.js configuration file format (TypeScript to JavaScript)
+
+### Changed
+- Updated development scripts
+  - Added `generate:samples` command
+  - Removed turbopack flag from dev commands 
