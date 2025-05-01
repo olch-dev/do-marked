@@ -80,10 +80,12 @@ export default function Timeline({ files }: TimelineProps) {
   const itemSize = 120; // Estimated height of each timeline item
 
   const renderItem = ({ index, style }: ListChildComponentProps) => (
-    <TimelineItem
-      file={sortedFiles[index]}
-      style={style}
-    />
+    <div data-testid="timeline-item-container">
+      <TimelineItem
+        file={sortedFiles[index]}
+        style={style}
+      />
+    </div>
   );
 
   useEffect(() => {

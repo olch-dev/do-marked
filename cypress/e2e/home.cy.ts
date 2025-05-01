@@ -17,13 +17,13 @@ describe('Home Page', () => {
     })
     
     // Check for timeline items
-    cy.get('[data-testid="timeline-item"]', { timeout: 10000 })
+    cy.get('[data-testid="timeline-item-container"]', { timeout: 10000 })
       .should('exist')
       .should('have.length.gt', 0)
   })
 
   it('displays reading time for posts', () => {
-    cy.get('[data-testid="timeline-item"]', { timeout: 10000 })
+    cy.get('[data-testid="timeline-item-container"]', { timeout: 10000 })
       .first()
       .should('contain', 'min read')
   })
@@ -45,12 +45,12 @@ describe('Home Page', () => {
         cy.wait(1000)
         
         // Debug: Log the filtered items
-        cy.get('[data-testid="timeline-item"]').then(($items) => {
+        cy.get('[data-testid="timeline-item-container"]').then(($items) => {
           cy.log('Filtered items:', $items.length)
         })
         
         // Check that all visible timeline items contain the selected label
-        cy.get('[data-testid="timeline-item"]').each(($item) => {
+        cy.get('[data-testid="timeline-item-container"]').each(($item) => {
           cy.wrap($item).should('contain', labelText)
         })
       })
