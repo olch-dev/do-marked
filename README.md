@@ -15,6 +15,29 @@ A modern web application that displays and renders markdown files from a GitHub 
 - Tailwind CSS (Styling)
 - GitHub API (File fetching)
 - React Markdown (Markdown rendering)
+- Octokit (GitHub API client)
+
+## Architecture
+
+The application is built with a clear separation of concerns:
+
+1. **GitHub Integration** (`src/lib/github.ts`)
+   - Handles authentication using GITHUB_TOKEN
+   - Fetches markdown files from the repository
+   - Manages GitHub API rate limits
+   - Requires GITHUB_TOKEN for authenticated requests
+
+2. **Markdown Rendering** (`src/components/Markdown.tsx`)
+   - Uses react-markdown to render markdown content
+   - Handles markdown syntax and formatting
+   - Receives pre-fetched markdown content
+   - No direct interaction with GitHub API
+
+3. **Environment Management** (`src/lib/env.ts`)
+   - Centralizes environment variable validation
+   - Provides type-safe access to configuration
+   - Ensures required variables are present
+   - Manages GITHUB_TOKEN and other GitHub-related variables
 
 ## Getting Started
 
