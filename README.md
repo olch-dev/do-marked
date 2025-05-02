@@ -13,6 +13,7 @@ A simple blog that displays markdown files from a GitHub repository in a timelin
 - Virtual scrolling for efficient rendering of large lists
 - Sample data generation for testing
 - Reading time estimates for each post
+- End-to-end testing with Cypress
 
 ## Getting Started
 
@@ -190,4 +191,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Testing
+
+The project uses Cypress for end-to-end testing. Tests are located in the `cypress/e2e` directory.
+
+### Running Tests
+
+```bash
+# Start the development server in local mode
+npm run dev:local
+
+# In a separate terminal, run Cypress
+npm run cypress:open
+```
+
+### Test Structure
+
+- `home.cy.ts`: Tests the home page functionality
+  - Navigation to posts
+  - Timeline rendering
+  - Local mode support
+
+Tests use fixture data from `cypress/fixtures` and run against the local development server.
  
