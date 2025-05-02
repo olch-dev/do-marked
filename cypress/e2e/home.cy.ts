@@ -50,4 +50,30 @@ describe('Home Page', () => {
           .should('contain', 'min read')
       })
   })
+
+  it('displays posts in chronological order (newest first)', () => {
+    // Wait for timeline items to be rendered
+    cy.get('[data-testid="timeline-item-container"]', { timeout: 10000 })
+      .should('exist')
+      .should('have.length.gt', 0)
+    
+    // Get all dates from the timeline
+    const dates: Date[] = []
+    cy.get('[data-testid="timeline-item-container"]')
+      .each(($item) => {
+        cy.wrap($item)
+          .find('.text-gray-500')
+          .first()
+          .invoke('text')
+          .then((dateText) => {
+            dates.push(new Date(dateText))
+          })
+      })
+      .then(() => {
+        // Verify dates are in descending order
+        for (let i = 1; i < dates.length; i++) {
+          expect(dates[i].getTime()).to.be.lte(dates[i - 1].getTime())
+        }
+      })
+  })
 }) 
