@@ -95,4 +95,20 @@ describe('Home Page', () => {
           .and('match', /^\/posts\//)
       })
   })
+
+  it('displays post labels correctly', () => {
+    // Wait for timeline items to be rendered
+    cy.get('[data-testid="timeline-item-container"]', { timeout: 10000 })
+      .should('exist')
+      .should('have.length.gt', 0)
+    
+    // Check each post has at least one label
+    cy.get('[data-testid="timeline-item-container"]')
+      .each(($item) => {
+        cy.wrap($item)
+          .find('.bg-gray-100.text-gray-600')
+          .should('exist')
+          .should('not.be.empty')
+      })
+  })
 }) 
