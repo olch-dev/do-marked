@@ -196,6 +196,26 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 The project uses Cypress for end-to-end testing. Tests are located in the `cypress/e2e` directory.
 
+### Test IDs
+
+The application uses `data-testid` attributes to make elements easily selectable in tests. Here are the main test IDs used:
+
+- `post-content`: Main container for post content
+- `post-layout`: Grid layout container
+- `table-of-contents-container`: Container for the table of contents
+- `table-of-contents`: Table of contents component
+- `table-of-contents-title`: Table of contents heading
+- `table-of-contents-nav`: Navigation element in table of contents
+- `table-of-contents-list`: List of headings
+- `table-of-contents-item-{id}`: Individual heading items
+- `table-of-contents-link-{id}`: Links to headings
+- `post-main-content`: Main content area
+- `post-header`: Header section with title and metadata
+- `post-title-container`: Container for title and home link
+- `home-link`: Link to home page
+- `post-title`: Post title
+- `reading-time`: Reading time estimate
+
 ### Running Tests
 
 ```bash

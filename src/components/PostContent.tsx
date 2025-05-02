@@ -16,7 +16,7 @@ interface NavigationButtonsProps {
 
 function NavigationButtons({ currentIndex, totalFiles, onPrevious, onNext }: NavigationButtonsProps) {
   return (
-    <div className="flex justify-between mt-8">
+    <div className="flex justify-between items-center mt-8">
       <button
         onClick={onPrevious}
         disabled={currentIndex === 0}
@@ -67,15 +67,24 @@ export default function PostContent({ content, files, currentPath, currentFile }
   }, [currentIndex, files, router]);
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div className="md:col-span-1">
+    <div data-testid="post-content" className="max-w-4xl mx-auto">
+      <div data-testid="post-layout" className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div data-testid="table-of-contents-container" className="md:col-span-1">
           <TableOfContents headings={headings} />
         </div>
-        <div className="md:col-span-3">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold">{currentFile.title}</h1>
-            <span className="text-sm text-gray-500">{currentFile.readingTime.text}</span>
+        <div data-testid="post-main-content" className="md:col-span-3">
+          <div data-testid="post-header" className="flex justify-between items-center mb-8">
+            <div data-testid="post-title-container" className="flex items-center gap-4">
+              <a
+                href="/"
+                data-testid="home-link"
+                className="text-sm text-gray-500 hover:text-gray-700"
+              >
+                ← Home
+              </a>
+              <h1 data-testid="post-title" className="text-3xl font-bold">{currentFile.title}</h1>
+            </div>
+            <span data-testid="reading-time" className="text-sm text-gray-500">{currentFile.readingTime.text}</span>
           </div>
           <MarkdownContent content={content} />
           <NavigationButtons
