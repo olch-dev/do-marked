@@ -35,4 +35,19 @@ describe('Home Page', () => {
     // Check we're on a post page
     cy.url().should('include', '/posts/')
   })
+
+  it('displays reading time for each post', () => {
+    // Wait for timeline items to be rendered
+    cy.get('[data-testid="timeline-item-container"]', { timeout: 10000 })
+      .should('exist')
+      .should('have.length.gt', 0)
+    
+    // Check that each post has a reading time
+    cy.get('[data-testid="timeline-item-container"]')
+      .each(($item) => {
+        cy.wrap($item)
+          .find('.text-gray-500')
+          .should('contain', 'min read')
+      })
+  })
 }) 
