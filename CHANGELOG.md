@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2024-03-21
+
+### Added
+- Basic Cypress test for post navigation
+- Local mode support in Cypress tests
+- Testing documentation in README
+
+### Changed
+- Simplified Cypress test to focus on core functionality
+- Added proper waiting for timeline items to render
+- Improved documentation with testing section
+
+### Fixed
+- Fixed reading time display in timeline
+- Fixed content parsing for reading time calculation
+- Resolved async Client Component error by properly separating server and client components
+- Fixed invalid component import issues by configuring proper path aliases
+- Fixed markdown header rendering by properly configuring showdown options
+- Fixed main title styling to ensure proper bold text display
+- Fixed markdown heading and list item styling by properly configuring CSS reset
+- Fixed date handling for files without dates by using January 1st, 1970 as default
+- Fixed label handling to ensure it's always an array 
+
 ## [Unreleased]
 
 ### Added
@@ -43,7 +66,6 @@ All notable changes to this project will be documented in this file.
   - Display in timeline and post view
   - Handle markdown syntax and code blocks
   - Format display text
-- Basic Cypress test for post navigation
 - Local mode support in Cypress tests
 - Testing documentation in README
 
@@ -83,8 +105,6 @@ All notable changes to this project will be documented in this file.
   - Pre-calculate during file loading
   - Store in file object
   - Consistent calculation across views
-- Simplified Cypress test to focus on core functionality
-- Added proper waiting for timeline items to render
 - Improved documentation with testing section
 
 ### Fixed
