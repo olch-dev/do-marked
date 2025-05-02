@@ -12,7 +12,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
   }
 
   return (
-    <div className="mb-8 p-4 bg-gray-50 rounded-lg">
+    <div data-testid="table-of-contents" className="mb-8 p-4 bg-gray-50 rounded-lg">
       <h2 className="text-lg font-semibold mb-4">Table of Contents</h2>
       <nav>
         <ul className="space-y-2">
