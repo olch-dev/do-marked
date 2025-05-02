@@ -37,4 +37,22 @@ describe('Post Page', () => {
     cy.get('button').contains('Previous').should('exist')
     cy.get('button').contains('Next').should('exist')
   })
+
+  it('displays post content correctly', () => {
+    // Wait for the post content to be rendered
+    cy.get('article', { timeout: 10000 })
+      .should('exist')
+    
+    // Check that the post has a title
+    cy.contains('Sample Post 1')
+      .should('exist')
+    
+    // Check that the post has content
+    cy.contains('This is a sample post')
+      .should('exist')
+    
+    // Check that the post has reading time
+    cy.contains('min read')
+      .should('exist')
+  })
 })
