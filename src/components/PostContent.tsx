@@ -82,7 +82,6 @@ export default function PostContent({ content, files, currentPath, currentFile }
               >
                 ← Home
               </a>
-              <h1 data-testid="post-title" className="text-3xl font-bold">{currentFile.title}</h1>
             </div>
             <span data-testid="reading-time" className="text-sm text-gray-500">{currentFile.readingTime.text}</span>
           </div>
