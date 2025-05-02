@@ -196,6 +196,49 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 The project uses Cypress for end-to-end testing. Tests are located in the `cypress/e2e` directory.
 
+### Test Setup
+
+The test environment includes:
+
+1. **Custom Commands** (`cypress/support/e2e.ts`)
+   - `getByTestId`: Helper to select elements by data-testid
+   - `ensureSampleFiles`: Ensures sample files exist before tests run
+
+2. **Cypress Plugins** (`cypress/plugins/index.ts`)
+   - Custom tasks for Node.js environment
+   - Sample file generation when needed
+   - File system operations
+
+3. **Sample Files**
+   - Generated on-demand when tests start
+   - Not stored in source control
+   - Created in `src/sample-files` directory
+
+### Running Tests
+
+```bash
+# Start the development server in local mode
+npm run dev:local
+
+# In a separate terminal, run Cypress
+npm run cypress:open
+```
+
+### Test Structure
+
+- `home.cy.ts`: Tests the home page functionality
+  - Navigation to posts
+  - Timeline rendering
+  - Local mode support
+
+- `post.cy.ts`: Tests the post page functionality
+  - Post content rendering
+  - Navigation between posts
+  - Table of contents
+  - Reading time display
+
+Tests use fixture data from `cypress/fixtures` and run against the local development server.
+
 ### Test IDs
 
 The application uses `data-testid` attributes to make elements easily selectable in tests. Here are the main test IDs used:
@@ -216,22 +259,9 @@ The application uses `data-testid` attributes to make elements easily selectable
 - `post-title`: Post title
 - `reading-time`: Reading time estimate
 
-### Running Tests
+## Deploy on Vercel
 
-```bash
-# Start the development server in local mode
-npm run dev:local
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-# In a separate terminal, run Cypress
-npm run cypress:open
-```
-
-### Test Structure
-
-- `home.cy.ts`: Tests the home page functionality
-  - Navigation to posts
-  - Timeline rendering
-  - Local mode support
-
-Tests use fixture data from `cypress/fixtures` and run against the local development server.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
  

@@ -81,6 +81,10 @@ All notable changes to this project will be documented in this file.
   - Removed sample files from source control
   - Added ensureSampleFiles Cypress command
   - Files are generated when tests start if they don't exist
+- Added Cypress plugins for test automation
+  - Added custom tasks for sample file generation
+  - Added Node.js environment integration
+  - Added documentation for test setup
 
 ### Changed
 - Improved README.md structure and clarity
@@ -120,6 +124,10 @@ All notable changes to this project will be documented in this file.
   - Consistent calculation across views
 - Improved documentation with testing section
 - Fixed indentation in main page component
+- Enhanced test documentation
+  - Added test setup section
+  - Added plugins documentation
+  - Added sample file generation details
 
 ### Fixed
 - Fixed reading time display in timeline
