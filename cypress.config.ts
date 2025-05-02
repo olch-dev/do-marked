@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress'
 import webpackPreprocessor from '@cypress/webpack-preprocessor'
 import webpackConfig from './webpack.config'
+import plugins from './cypress/plugins'
 
 export default defineConfig({
   component: {
@@ -23,7 +24,8 @@ export default defineConfig({
     screenshotOnRunFailure: false,
     bail: 1,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      plugins(on, config)
+      return config
     },
   },
 }) 
