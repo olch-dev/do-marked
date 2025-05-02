@@ -135,4 +135,27 @@ describe('Home Page', () => {
           .should('have.css', 'left', '16px') // 16px = 4rem = left-4
       })
   })
+
+  it('verifies current post title and labels layout', () => {
+    // Wait for timeline items to be rendered
+    cy.get('[data-testid="timeline-item-container"]', { timeout: 10000 })
+      .should('exist')
+      .should('have.length.gt', 0)
+    
+    // Check the layout of the first post
+    cy.get('[data-testid="timeline-item-container"]')
+      .first()
+      .within(() => {
+        // Verify title and reading time are in the same line
+        cy.get('.flex.items-center.gap-2')
+          .should('exist')
+          .should('contain', 'Sample Post 1')
+          .should('contain', 'min read')
+        
+        // Verify labels are in the same line as title
+        cy.get('.flex.flex-wrap.gap-2')
+          .should('exist')
+          .should('be.visible')
+      })
+  })
 }) 
