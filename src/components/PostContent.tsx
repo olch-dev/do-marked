@@ -39,9 +39,10 @@ interface PostContentProps {
   content: string;
   files: MarkdownFile[];
   currentPath: string;
+  currentFile: MarkdownFile;
 }
 
-export default function PostContent({ content, files, currentPath }: PostContentProps) {
+export default function PostContent({ content, files, currentPath, currentFile }: PostContentProps) {
   const router = useRouter();
   const [headings, setHeadings] = useState<Array<{ level: number; text: string; id: string }>>([]);
   const currentIndex = useMemo(() => 
@@ -72,6 +73,10 @@ export default function PostContent({ content, files, currentPath }: PostContent
           <TableOfContents headings={headings} />
         </div>
         <div className="md:col-span-3">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold">{currentFile.title}</h1>
+            <span className="text-sm text-gray-500">{currentFile.readingTime.text}</span>
+          </div>
           <MarkdownContent content={content} />
           <NavigationButtons
             currentIndex={currentIndex}
