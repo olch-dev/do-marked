@@ -26,9 +26,11 @@ function TimelineItem({ file, style }: TimelineItemProps) {
           href={`/posts/${encodeURIComponent(file.path)}`}
           className="flex-1 p-4 border rounded-lg hover:bg-gray-50 transition-colors"
         >
-          <div className="flex items-center gap-2">
-            <h2 className="text-xl font-semibold">{file.title || file.name.replace('.md', '')}</h2>
-            <span className="text-sm text-gray-500">• {file.readingTime.text}</span>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl font-semibold">{file.title || file.name.replace('.md', '')}</h2>
+              <span className="text-sm text-gray-500">• {file.readingTime.text}</span>
+            </div>
             {file.labels && file.labels.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {file.labels.map(label => (
