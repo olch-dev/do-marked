@@ -1,4 +1,6 @@
 import { defineConfig } from 'cypress'
+import webpackPreprocessor from '@cypress/webpack-preprocessor'
+import webpackConfig from './webpack.config'
 
 export default defineConfig({
   component: {
@@ -8,6 +10,10 @@ export default defineConfig({
     },
     supportFile: 'cypress/support/component.ts',
     indexHtmlFile: 'cypress/support/component-index.html',
+    setupNodeEvents(on, config) {
+      on('file:preprocessor', webpackPreprocessor(webpackConfig))
+      return config
+    },
   },
   e2e: {
     supportFile: 'cypress/support/e2e.ts',
@@ -15,6 +21,7 @@ export default defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     video: false,
     screenshotOnRunFailure: false,
+    bail: 1,
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
