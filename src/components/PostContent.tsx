@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { MarkdownFile } from '@/lib/github';
 import { extractHeadings } from '@/lib/markdown';
 import TableOfContents from './TableOfContents';
+import MarkdownContent from './MarkdownContent';
 
 interface NavigationButtonsProps {
   currentIndex: number;
@@ -15,18 +16,18 @@ interface NavigationButtonsProps {
 
 function NavigationButtons({ currentIndex, totalFiles, onPrevious, onNext }: NavigationButtonsProps) {
   return (
-    <div className="flex justify-between items-center mb-8">
+    <div className="flex justify-between mt-8">
       <button
         onClick={onPrevious}
         disabled={currentIndex === 0}
-        className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-4 py-2 bg-gray-100 rounded-lg disabled:opacity-50"
       >
         Previous
       </button>
       <button
         onClick={onNext}
         disabled={currentIndex === totalFiles - 1}
-        className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-4 py-2 bg-gray-100 rounded-lg disabled:opacity-50"
       >
         Next
       </button>
@@ -40,65 +41,45 @@ interface PostContentProps {
   currentPath: string;
 }
 
-export function PostContent({ content, files, currentPath }: PostContentProps) {
+export default function PostContent({ content, files, currentPath }: PostContentProps) {
   const router = useRouter();
-  const [headings, setHeadings] = useState<{ level: number; text: string; id: string }[]>([]);
-  const currentFile = files.find(f => f.path === currentPath);
-
+  const [headings, setHeadings] = useState<Array<{ level: number; text: string; id: string }>>([]);
   const currentIndex = useMemo(() => 
     files.findIndex(file => file.path === currentPath),
     [files, currentPath]
   );
 
-  const previousFile = useMemo(() => 
-    currentIndex > 0 ? files[currentIndex - 1] : null,
-    [currentIndex, files]
-  );
-
-  const nextFile = useMemo(() => 
-    currentIndex < files.length - 1 ? files[currentIndex + 1] : null,
-    [currentIndex, files]
-  );
-
-  const handlePrevious = useCallback(() => {
-    if (previousFile) {
-      router.push(`/posts/${encodeURIComponent(previousFile.path)}`);
-    }
-  }, [previousFile, router]);
-
-  const handleNext = useCallback(() => {
-    if (nextFile) {
-      router.push(`/posts/${encodeURIComponent(nextFile.path)}`);
-    }
-  }, [nextFile, router]);
-
   useEffect(() => {
-    const newHeadings = extractHeadings(content);
-    setHeadings(newHeadings);
+    setHeadings(extractHeadings(content));
   }, [content]);
 
+  const handlePrevious = useCallback(() => {
+    if (currentIndex > 0) {
+      router.push(`/posts/${encodeURIComponent(files[currentIndex - 1].path)}`);
+    }
+  }, [currentIndex, files, router]);
+
+  const handleNext = useCallback(() => {
+    if (currentIndex < files.length - 1) {
+      router.push(`/posts/${encodeURIComponent(files[currentIndex + 1].path)}`);
+    }
+  }, [currentIndex, files, router]);
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">{currentFile?.title}</h1>
-        <span className="text-sm text-gray-500">{currentFile?.readingTime.text}</span>
-      </div>
-
-      <NavigationButtons
-        currentIndex={currentIndex}
-        totalFiles={files.length}
-        onPrevious={handlePrevious}
-        onNext={handleNext}
-      />
-
-      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8">
-        <div className="lg:sticky lg:top-8 lg:self-start">
+    <div className="max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="md:col-span-3">
+          <MarkdownContent content={content} />
+          <NavigationButtons
+            currentIndex={currentIndex}
+            totalFiles={files.length}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+          />
+        </div>
+        <div className="md:col-span-1">
           <TableOfContents headings={headings} />
         </div>
-
-        <article className="prose prose-lg max-w-none">
-          <div dangerouslySetInnerHTML={{ __html: content }} />
-        </article>
       </div>
     </div>
   );
