@@ -15,6 +15,6 @@ export default async function Home() {
       <TimelineWrapper>
         <Timeline files={files} />
       </TimelineWrapper>
-    </main>
+      </main>
   );
 }

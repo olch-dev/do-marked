@@ -3,10 +3,9 @@ import Link from 'next/link';
 
 interface TimelineItemProps {
   file: MarkdownFile;
-  style: React.CSSProperties;
 }
 
-function TimelineItem({ file, style }: TimelineItemProps) {
+function TimelineItem({ file }: TimelineItemProps) {
   const formattedDate = file.date ? new Date(file.date).toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'long',
@@ -14,7 +13,7 @@ function TimelineItem({ file, style }: TimelineItemProps) {
   }) : null;
 
   return (
-    <div style={style} className="relative pl-8">
+    <div className="relative pl-8">
       <div className="absolute left-4 top-0 w-3 h-3 rounded-full bg-blue-500"></div>
       <div className="flex gap-4">
         {formattedDate && (
@@ -27,9 +26,9 @@ function TimelineItem({ file, style }: TimelineItemProps) {
           className="flex-1 p-4 border rounded-lg hover:bg-gray-50 transition-colors"
         >
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
+            <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold">{file.title || file.name.replace('.md', '')}</h2>
-              <span className="text-sm text-gray-500">• {file.readingTime.text}</span>
+              <span className="text-sm text-gray-500">{file.readingTime.text}</span>
             </div>
             {file.labels && file.labels.length > 0 && (
               <div className="flex flex-wrap gap-2">

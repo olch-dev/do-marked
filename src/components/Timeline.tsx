@@ -22,7 +22,7 @@ export default function Timeline({ files }: TimelineProps) {
     const file = sortedFiles[index]
     return (
       <div style={style} data-testid="timeline-item-container">
-        <TimelineItem file={file} style={style} />
+        <TimelineItem file={file} />
       </div>
     )
   }, [sortedFiles])
