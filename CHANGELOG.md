@@ -77,6 +77,10 @@ All notable changes to this project will be documented in this file.
   - Added tests for post metadata display
   - Added tests for navigation buttons
   - Added tests for table of contents
+- Added dynamic sample file generation for tests
+  - Removed sample files from source control
+  - Added ensureSampleFiles Cypress command
+  - Files are generated when tests start if they don't exist
 
 ### Changed
 - Improved README.md structure and clarity
