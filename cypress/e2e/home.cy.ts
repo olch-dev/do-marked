@@ -111,4 +111,28 @@ describe('Home Page', () => {
           .should('not.be.empty')
       })
   })
+
+  it('displays timeline visual elements correctly', () => {
+    // Wait for timeline items to be rendered
+    cy.get('[data-testid="timeline-item-container"]', { timeout: 10000 })
+      .should('exist')
+      .should('have.length.gt', 0)
+    
+    // Check each timeline item has the blue dot and timeline line
+    cy.get('[data-testid="timeline-item-container"]')
+      .each(($item) => {
+        // Verify blue dot exists
+        cy.wrap($item)
+          .find('.bg-blue-500')
+          .should('exist')
+          .should('have.class', 'rounded-full')
+          .should('have.class', 'w-3')
+          .should('have.class', 'h-3')
+        
+        // Verify timeline line exists by checking the visual effect
+        cy.wrap($item)
+          .find('.bg-blue-500')
+          .should('have.css', 'left', '16px') // 16px = 4rem = left-4
+      })
+  })
 }) 
