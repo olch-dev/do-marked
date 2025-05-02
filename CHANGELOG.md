@@ -45,6 +45,7 @@ All notable changes to this project will be documented in this file.
   - Format display text
 - Basic Cypress test for post navigation
 - Local mode support in Cypress tests
+- Testing documentation in README
 
 ### Changed
 - Improved README.md structure and clarity
@@ -84,6 +85,7 @@ All notable changes to this project will be documented in this file.
   - Consistent calculation across views
 - Simplified Cypress test to focus on core functionality
 - Added proper waiting for timeline items to render
+- Improved documentation with testing section
 
 ### Fixed
 - Fixed reading time display in timeline
