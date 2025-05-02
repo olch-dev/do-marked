@@ -1,5 +1,8 @@
 describe('Post Page', () => {
   beforeEach(() => {
+    // Ensure sample files exist
+    cy.ensureSampleFiles()
+
     // Load fixture data
     cy.fixture('2025-05-01-sample-post-1.md').as('post1')
     cy.fixture('2025-05-02-sample-post-2.md').as('post2')
