@@ -1,6 +1,6 @@
 import { getMarkdownFile, getMarkdownFiles } from '@/lib/github';
 import { parseMarkdown } from '@/lib/markdown';
-import PostContent from '@/components/PostContent';
+import { PostContent } from '@/components/PostContent';
 
 // Revalidate the page every hour
 export const revalidate = 3600;

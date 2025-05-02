@@ -7,11 +7,16 @@ export default async function Home() {
   setLocalMode(isLocalMode);
   
   const files = await getMarkdownFiles();
+  console.log('Home page files:', files); // Debug: Log the files
   
   return (
     <main className="min-h-screen p-8 max-w-4xl mx-auto">
       <h1 className="text-4xl font-bold mb-8">Less is more</h1>
-      <Timeline files={files} />
-    </main>
+      {files.length > 0 ? (
+        <Timeline files={files} />
+      ) : (
+        <div>No posts available</div>
+      )}
+      </main>
   );
 }

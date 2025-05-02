@@ -65,6 +65,11 @@ export default function Timeline({ files }: TimelineProps) {
   const [listHeight, setListHeight] = useState(600);
   const containerRef = useRef<HTMLDivElement>(null);
   
+  // Debug: Log the files
+  useEffect(() => {
+    console.log('Timeline files:', files);
+  }, [files]);
+  
   const allLabels = useMemo(() => 
     Array.from(new Set(files.flatMap(file => file.labels))).sort(),
     [files]
@@ -77,16 +82,25 @@ export default function Timeline({ files }: TimelineProps) {
     [files, selectedLabels]
   );
 
+  // Debug: Log the sorted files
+  useEffect(() => {
+    console.log('Sorted files:', sortedFiles);
+  }, [sortedFiles]);
+
   const itemSize = 120; // Estimated height of each timeline item
 
-  const renderItem = ({ index, style }: ListChildComponentProps) => (
-    <div data-testid="timeline-item-container">
-      <TimelineItem
-        file={sortedFiles[index]}
-        style={style}
-      />
-    </div>
-  );
+  const renderItem = ({ index, style }: ListChildComponentProps) => {
+    const file = sortedFiles[index];
+    console.log('Rendering item:', file); // Debug: Log each rendered item
+    return (
+      <div data-testid="timeline-item-container">
+        <TimelineItem
+          file={file}
+          style={style}
+        />
+      </div>
+    );
+  };
 
   useEffect(() => {
     const updateHeight = () => {
@@ -109,6 +123,12 @@ export default function Timeline({ files }: TimelineProps) {
     return () => window.removeEventListener('resize', updateHeight);
   }, []);
 
+  // Debug: Log if no files are available
+  if (files.length === 0) {
+    console.log('No files available to render');
+    return <div>No posts available</div>;
+  }
+
   return (
     <div ref={containerRef} className="relative">
       {/* Label Filter Section */}
@@ -130,6 +150,7 @@ export default function Timeline({ files }: TimelineProps) {
       <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200"></div>
       
       <List
+        data-testid="timeline-list"
         height={listHeight}
         itemCount={sortedFiles.length}
         itemSize={itemSize}
