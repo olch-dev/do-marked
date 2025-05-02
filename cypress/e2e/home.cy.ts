@@ -136,7 +136,7 @@ describe('Home Page', () => {
       })
   })
 
-  it('verifies current post title and labels layout', () => {
+  it('verifies post title and reading time layout', () => {
     // Wait for timeline items to be rendered
     cy.get('[data-testid="timeline-item-container"]', { timeout: 10000 })
       .should('exist')
@@ -146,13 +146,13 @@ describe('Home Page', () => {
     cy.get('[data-testid="timeline-item-container"]')
       .first()
       .within(() => {
-        // Verify title and reading time are in the same line
-        cy.get('.flex.items-center.gap-2')
+        // Verify title and reading time are in the same line with reading time on the right
+        cy.get('.flex.justify-between.items-center')
           .should('exist')
           .should('contain', 'Sample Post 1')
           .should('contain', 'min read')
         
-        // Verify labels are in the same line as title
+        // Verify labels are below the title
         cy.get('.flex.flex-wrap.gap-2')
           .should('exist')
           .should('be.visible')
