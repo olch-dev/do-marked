@@ -68,6 +68,10 @@ All notable changes to this project will be documented in this file.
   - Format display text
 - Local mode support in Cypress tests
 - Testing documentation in README
+- Added data-testid attributes to components for better testability
+  - Added test IDs to PostContent component for main layout elements
+  - Added test IDs to TableOfContents component for navigation elements
+  - Updated documentation with test ID reference
 
 ### Changed
 - Improved README.md structure and clarity
