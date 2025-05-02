@@ -68,6 +68,9 @@ export default function PostContent({ content, files, currentPath }: PostContent
   return (
     <div className="max-w-4xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="md:col-span-1">
+          <TableOfContents headings={headings} />
+        </div>
         <div className="md:col-span-3">
           <MarkdownContent content={content} />
           <NavigationButtons
@@ -76,9 +79,6 @@ export default function PostContent({ content, files, currentPath }: PostContent
             onPrevious={handlePrevious}
             onNext={handleNext}
           />
-        </div>
-        <div className="md:col-span-1">
-          <TableOfContents headings={headings} />
         </div>
       </div>
     </div>
