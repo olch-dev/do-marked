@@ -72,6 +72,11 @@ All notable changes to this project will be documented in this file.
   - Added test IDs to PostContent component for main layout elements
   - Added test IDs to TableOfContents component for navigation elements
   - Updated documentation with test ID reference
+- Enhanced post page tests with comprehensive checks
+  - Added tests for markdown content rendering
+  - Added tests for post metadata display
+  - Added tests for navigation buttons
+  - Added tests for table of contents
 
 ### Changed
 - Improved README.md structure and clarity
@@ -102,14 +107,15 @@ All notable changes to this project will be documented in this file.
 - Improved performance with in-memory caching
 - Enhanced page revalidation strategy
 - Improved timeline layout
+  - Removed unnecessary style prop from TimelineItem
+  - Enhanced timeline item spacing and alignment
   - Moved reading time to the right side
-  - Placed labels below title
-  - Enhanced spacing and alignment
 - Optimized reading time calculation
   - Pre-calculate during file loading
   - Store in file object
   - Consistent calculation across views
 - Improved documentation with testing section
+- Fixed indentation in main page component
 
 ### Fixed
 - Fixed reading time display in timeline
