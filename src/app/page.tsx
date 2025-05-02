@@ -1,5 +1,6 @@
 import { getMarkdownFiles, setLocalMode } from '@/lib/github';
 import Timeline from '@/components/Timeline';
+import TimelineWrapper from '@/components/TimelineWrapper';
 
 export default async function Home() {
   // Check if local mode is enabled via environment variable
@@ -7,16 +8,13 @@ export default async function Home() {
   setLocalMode(isLocalMode);
   
   const files = await getMarkdownFiles();
-  console.log('Home page files:', files); // Debug: Log the files
   
   return (
-    <main className="min-h-screen p-8 max-w-4xl mx-auto">
+    <main className="flex min-h-screen flex-col items-center p-4 md:p-24">
       <h1 className="text-4xl font-bold mb-8">Less is more</h1>
-      {files.length > 0 ? (
+      <TimelineWrapper>
         <Timeline files={files} />
-      ) : (
-        <div>No posts available</div>
-      )}
-      </main>
+      </TimelineWrapper>
+    </main>
   );
 }
