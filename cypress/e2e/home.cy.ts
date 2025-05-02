@@ -76,4 +76,23 @@ describe('Home Page', () => {
         }
       })
   })
+
+  it('displays and links post titles correctly', () => {
+    // Wait for timeline items to be rendered
+    cy.get('[data-testid="timeline-item-container"]', { timeout: 10000 })
+      .should('exist')
+      .should('have.length.gt', 0)
+    
+    // Check each post has a title and link
+    cy.get('[data-testid="timeline-item-container"]')
+      .each(($item) => {
+        // Verify title exists and is not empty
+        cy.wrap($item)
+          .find('a')
+          .should('exist')
+          .should('not.be.empty')
+          .should('have.attr', 'href')
+          .and('match', /^\/posts\//)
+      })
+  })
 }) 
