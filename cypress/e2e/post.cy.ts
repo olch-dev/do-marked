@@ -80,7 +80,7 @@ describe('Post Page', () => {
     cy.get('h1').should('contain', 'Sample Post 1')
     
     // Check reading time
-    cy.get('.text-gray-500').should('contain', 'min read')
+    cy.get('[data-testid="reading-time"]').should('contain', 'min read')
   })
 
   it('has working navigation buttons', () => {
