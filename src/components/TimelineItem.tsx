@@ -12,6 +12,15 @@ function TimelineItem({ file }: TimelineItemProps) {
     day: 'numeric'
   }) : null;
 
+  // Remove date prefix from filename, replace hyphens with spaces, and capitalize first letter of each word
+  const displayName = file.name
+    .replace(/^\d{4}-\d{2}-\d{2}-/, '')
+    .replace('.md', '')
+    .replace(/-/g, ' ')
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
   return (
     <div className="relative pl-8">
       <div className="absolute left-4 top-0 w-3 h-3 rounded-full bg-blue-500"></div>
@@ -27,7 +36,7 @@ function TimelineItem({ file }: TimelineItemProps) {
         >
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-gray-500">{file.title || file.name.replace('.md', '')}</h2>
+              <h2 className="text-xl font-semibold text-gray-500">{displayName}</h2>
               <span className="text-sm text-gray-500">{file.readingTime.text}</span>
             </div>
             {file.labels && file.labels.length > 0 && (

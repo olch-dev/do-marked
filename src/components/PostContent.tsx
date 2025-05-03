@@ -43,13 +43,14 @@ interface PostHeaderProps {
 
 function PostHeader({ readingTime, title }: PostHeaderProps) {
   return (
-    <header data-testid="post-header" className="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-10 py-4 border-b border-gray-200 dark:border-gray-700">
-      <div className="flex justify-between items-center">
+    <header data-testid="post-header" className="sticky top-0 z-10 py-4 mb-4 rounded-lg" style={{ backgroundColor: 'var(--toc-bg)' }}>
+      <div className="flex justify-between items-center px-4">
         <div data-testid="post-title-container" className="flex items-center gap-4">
           <a
             href="/"
             data-testid="home-link"
-            className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 ease-in-out transform hover:scale-102 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:ring-offset-1 focus:ring-offset-white dark:focus:ring-offset-gray-900 focus:shadow-sm focus:transition-all focus:duration-200 rounded px-2 py-1"
+            className="text-sm hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 ease-in-out transform hover:scale-102 focus:outline-none focus:ring-2 focus:ring-blue-300/50 focus:ring-offset-1 focus:ring-offset-white dark:focus:ring-offset-gray-900 focus:shadow-sm focus:transition-all focus:duration-200 rounded px-2 py-1"
+            style={{ color: 'var(--toc-text)' }}
             aria-label="Return to home page"
           >
             ← Home
@@ -58,7 +59,8 @@ function PostHeader({ readingTime, title }: PostHeaderProps) {
         <div className="flex items-center gap-4">
           <span 
             data-testid="reading-time" 
-            className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200 ease-in-out"
+            className="text-sm hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200 ease-in-out"
+            style={{ color: 'var(--toc-text)' }}
             aria-label={`Reading time: ${readingTime}`}
           >
             {readingTime}
