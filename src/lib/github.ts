@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { parseMarkdown, extractHeadings } from './markdown';
 import { calculateReadingTime } from './reading-time';
+import { rateLimit, RateLimitError } from './rate-limiter';
 
 const { owner, repo, dir, token } = getEnv();
 
@@ -45,6 +46,9 @@ async function getCachedContent(path: string) {
   if (cached && Date.now() - cached.timestamp < CACHE_DURATION * 1000) {
     return cached.data;
   }
+
+  // Apply rate limiting
+  await rateLimit(`github:${owner}:${repo}:${path}`);
 
   const { data } = await octokit.rest.repos.getContent({
     owner,
