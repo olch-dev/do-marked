@@ -1,4 +1,5 @@
-import { getMarkdownFiles, setLocalMode } from '@/lib/github';
+import { getMarkdownFiles as getGitHubFiles, setLocalMode as setGitHubLocalMode } from '@/lib/github';
+import { getMarkdownFiles as getLocalFiles, setLocalMode as setLocalMode } from '@/lib/local-files';
 import Timeline from '@/components/Timeline';
 import { RateLimitError } from '@/lib/rate-limiter';
 
@@ -6,9 +7,13 @@ export default async function Home() {
   try {
     // Check if local mode is enabled via environment variable
     const isLocalMode = process.env.LOCAL_MODE === 'true';
+    
+    // Set local mode in both modules
+    setGitHubLocalMode(isLocalMode);
     setLocalMode(isLocalMode);
     
-    const files = await getMarkdownFiles();
+    // Use the appropriate function based on mode
+    const files = isLocalMode ? await getLocalFiles() : await getGitHubFiles();
     
     return (
       <main className="flex min-h-screen flex-col items-center p-4 md:p-24">

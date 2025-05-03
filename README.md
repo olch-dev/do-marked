@@ -93,10 +93,6 @@ Content with various sections...
    ---
    ```
 
-## License
-
-MIT
-
 ## Technology Stack
 
 - Next.js 14 (React framework)
@@ -170,27 +166,23 @@ labels: [label1, label2, label3]
 
 ## Error Handling
 
-If you see the error "Missing required environment variables", make sure you have:
-1. Created a `.env.local` file in the project root
-2. Set both `GITHUB_OWNER` and `GITHUB_REPO` variables
-3. Restarted the development server after making changes
+The application provides detailed error messages to help with debugging:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Content Validation Errors**
+   - Shows the filename where the error occurred
+   - Includes specific validation failure details
+   - Example: `File "example.md": Missing required frontmatter field: title`
 
-## Learn More
+2. **Environment Configuration**
+   If you see the error "Missing required environment variables", make sure you have:
+   - Created a `.env.local` file in the project root
+   - Set both `GITHUB_OWNER` and `GITHUB_REPO` variables
+   - Restarted the development server after making changes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Local Mode Errors**
+   - Shows detailed file information for validation errors
+   - Includes proper error propagation
+   - Maintains consistent error message formatting
 
 ## Testing
 
@@ -237,8 +229,6 @@ npm run cypress:open
   - Table of contents
   - Reading time display
 
-Tests use fixture data from `cypress/fixtures` and run against the local development server.
-
 ### Test IDs
 
 The application uses `data-testid` attributes to make elements easily selectable in tests. Here are the main test IDs used:
@@ -258,6 +248,19 @@ The application uses `data-testid` attributes to make elements easily selectable
 - `home-link`: Link to home page
 - `post-title`: Post title
 - `reading-time`: Reading time estimate
+
+## License
+
+MIT
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
