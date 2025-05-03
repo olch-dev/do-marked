@@ -6,6 +6,7 @@ import { MarkdownFile } from '@/lib/github';
 import { extractHeadings } from '@/lib/markdown';
 import TableOfContents from './TableOfContents';
 import MarkdownContent from './MarkdownContent';
+import ProgressBar from './ProgressBar';
 import { useTheme } from '@/context/ThemeContext';
 
 interface NavigationButtonsProps {
@@ -104,6 +105,7 @@ export default function PostContent({ content, files, currentPath, currentFile }
 
   return (
     <div data-testid="post-content" className="max-w-4xl mx-auto">
+      <ProgressBar />
       <div data-testid="post-layout" className="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div data-testid="table-of-contents-container" className="md:col-span-1">
           <TableOfContents headings={headings} />
