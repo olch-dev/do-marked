@@ -23,11 +23,11 @@ function TimelineItem({ file }: TimelineItemProps) {
         )}
         <Link
           href={`/posts/${encodeURIComponent(file.path)}`}
-          className="flex-1 p-4 border rounded-lg hover:bg-gray-50 transition-colors"
+          className="flex-1 p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
         >
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold">{file.title || file.name.replace('.md', '')}</h2>
+              <h2 className="text-xl font-semibold text-gray-500">{file.title || file.name.replace('.md', '')}</h2>
               <span className="text-sm text-gray-500">{file.readingTime.text}</span>
             </div>
             {file.labels && file.labels.length > 0 && (
@@ -35,7 +35,7 @@ function TimelineItem({ file }: TimelineItemProps) {
                 {file.labels.map(label => (
                   <span
                     key={label}
-                    className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-600"
+                    className="px-2 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
                   >
                     {label}
                   </span>

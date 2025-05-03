@@ -17,7 +17,7 @@ export default async function Home() {
     
     return (
       <main className="flex min-h-screen flex-col items-center p-4 md:p-24">
-        <h1 className="text-4xl font-bold mb-8">Less is more</h1>
+        <h1 className="text-4xl font-bold mb-8 text-gray-500">Less is more</h1>
         <Timeline files={files} />
       </main>
     );
@@ -25,7 +25,7 @@ export default async function Home() {
     if (error instanceof RateLimitError) {
       return (
         <main className="flex min-h-screen flex-col items-center p-4 md:p-24">
-          <h1 className="text-4xl font-bold mb-4">Rate Limit Exceeded</h1>
+          <h1 className="text-4xl font-bold mb-4 text-gray-500">Rate Limit Exceeded</h1>
           <p className="text-red-600 mb-4">{error.message}</p>
           <p className="text-gray-600">Please try again later.</p>
         </main>
