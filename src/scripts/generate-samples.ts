@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { format } = require('date-fns');
+const { format, addDays } = require('date-fns');
 
 const SAMPLE_DIR = path.join(process.cwd(), 'src/sample-files');
 const LABELS = ['react', 'typescript', 'nextjs', 'tailwind', 'javascript', 'webdev', 'tutorial', 'guide'];
@@ -67,10 +67,11 @@ function generateSampleFiles() {
     fs.mkdirSync(SAMPLE_DIR, { recursive: true });
   }
 
-  // Generate 100 sample files
+  // Generate 100 sample files starting from 2025-05-01
+  const startDate = new Date('2025-05-01');
+  
   for (let i = 0; i < 100; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - i); // One file per day, going back in time
+    const date = addDays(startDate, -i); // One file per day, going back in time
     const formattedDate = format(date, 'yyyy-MM-dd');
     const title = `Sample Post ${i + 1}`;
     const labels = generateRandomLabels();
