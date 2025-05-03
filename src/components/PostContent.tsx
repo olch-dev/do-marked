@@ -42,7 +42,6 @@ interface PostHeaderProps {
 }
 
 function PostHeader({ readingTime, title }: PostHeaderProps) {
-  const { theme, toggleTheme } = useTheme();
   return (
     <header data-testid="post-header" className="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-10 py-4 border-b border-gray-200 dark:border-gray-700">
       <div className="flex justify-between items-center">
@@ -57,13 +56,6 @@ function PostHeader({ readingTime, title }: PostHeaderProps) {
           </a>
         </div>
         <div className="flex items-center gap-4">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 text-gray-900 dark:text-gray-100"
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          >
-            {theme === 'light' ? '🌙' : '☀️'}
-          </button>
           <span 
             data-testid="reading-time" 
             className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200 ease-in-out"

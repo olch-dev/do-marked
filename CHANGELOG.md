@@ -85,6 +85,15 @@ All notable changes to this project will be documented in this file.
   - Added custom tasks for sample file generation
   - Added Node.js environment integration
   - Added documentation for test setup
+- Enhanced error handling with detailed file information
+  - Added filename to content validation errors
+  - Improved error messages for better debugging
+  - Added proper error propagation in local mode
+- Added dark mode toggle button
+  - Positioned in top-right corner
+  - Persists theme preference in localStorage
+  - Respects system color scheme preference
+  - Smooth transition between themes
 
 ### Changed
 - Improved README.md structure and clarity
@@ -128,6 +137,14 @@ All notable changes to this project will be documented in this file.
   - Added test setup section
   - Added plugins documentation
   - Added sample file generation details
+- Improved error handling in local files implementation
+  - Better error propagation for validation errors
+  - Consistent error message formatting
+  - Enhanced error context with file information
+- Simplified dark mode implementation
+  - Removed duplicate dark mode toggle from post header
+  - Centralized theme control in top-right corner
+  - Improved dark mode button styling
 
 ### Fixed
 - Fixed reading time display in timeline
