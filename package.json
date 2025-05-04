@@ -9,10 +9,10 @@
     "start": "next start",
     "lint": "next lint",
     "generate:samples": "ts-node src/scripts/generate-samples.ts",
-    "cypress:open": "cypress open --config-file config/cypress.ts",
-    "cypress:run": "cypress run --config-file config/cypress.ts",
-    "test": "cypress run --config-file config/cypress.ts",
-    "test:dev": "cypress open --config-file config/cypress.ts"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run",
+    "test:dev": "cypress open"
   },
   "dependencies": {
     "@types/marked": "^6.0.0",
