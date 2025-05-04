@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:local": "LOCAL_MODE=true next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "next dev -c config/next.js",
+    "dev:local": "LOCAL_MODE=true next dev -c config/next.js",
+    "build": "next build -c config/next.js",
+    "start": "next start -c config/next.js",
     "lint": "next lint",
     "generate:samples": "ts-node src/scripts/generate-samples.ts",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "test": "cypress run",
-    "test:dev": "cypress open"
+    "cypress:open": "cypress open --config-file config/cypress.ts",
+    "cypress:run": "cypress run --config-file config/cypress.ts",
+    "test": "cypress run --config-file config/cypress.ts",
+    "test:dev": "cypress open --config-file config/cypress.ts"
   },
   "dependencies": {
     "@types/marked": "^6.0.0",
