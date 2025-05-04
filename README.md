@@ -174,7 +174,7 @@ The application provides detailed error messages to help with debugging:
    - Example: `File "example.md": Missing required frontmatter field: title`
 
 2. **Environment Configuration**
-   If you see the error "Missing required environment variables", make sure you have:
+If you see the error "Missing required environment variables", make sure you have:
    - Created a `.env.local` file in the project root
    - Set both `GITHUB_OWNER` and `GITHUB_REPO` variables
    - Restarted the development server after making changes

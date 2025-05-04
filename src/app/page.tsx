@@ -5,22 +5,22 @@ import { RateLimitError } from '@/lib/rate-limiter';
 
 export default async function Home() {
   try {
-    // Check if local mode is enabled via environment variable
-    const isLocalMode = process.env.LOCAL_MODE === 'true';
+  // Check if local mode is enabled via environment variable
+  const isLocalMode = process.env.LOCAL_MODE === 'true';
     
     // Set local mode in both modules
     setGitHubLocalMode(isLocalMode);
-    setLocalMode(isLocalMode);
-    
+  setLocalMode(isLocalMode);
+  
     // Use the appropriate function based on mode
     const files = isLocalMode ? await getLocalFiles() : await getGitHubFiles();
-    
-    return (
-      <main className="flex min-h-screen flex-col items-center p-4 md:p-24">
+  
+  return (
+    <main className="flex min-h-screen flex-col items-center p-4 md:p-24">
         <h1 className="text-4xl font-bold mb-8 text-gray-500">Less is more</h1>
         <Timeline files={files} />
       </main>
-    );
+  );
   } catch (error) {
     if (error instanceof RateLimitError) {
       return (
