@@ -1,7 +1,7 @@
 import { defineConfig } from 'cypress'
 import webpackPreprocessor from '@cypress/webpack-preprocessor'
-import webpackConfig from './webpack.config'
-import plugins from './cypress/plugins'
+import webpackConfig from './webpack.js'
+import plugins from '../cypress/plugins'
 
 export default defineConfig({
   component: {
@@ -22,7 +22,6 @@ export default defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     video: false,
     screenshotOnRunFailure: false,
-    bail: 1,
     setupNodeEvents(on, config) {
       plugins(on, config)
       return config
