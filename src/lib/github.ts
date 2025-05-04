@@ -82,7 +82,7 @@ function extractTitleFromContent(content: string): string | null {
   return null;
 }
 
-let isLocalMode = true; // Default to local mode
+let isLocalMode = false; // Default to GitHub mode
 
 export function setLocalMode(enabled: boolean) {
   isLocalMode = enabled;
@@ -159,7 +159,11 @@ export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
     return Promise.all(
       markdownFiles.map(async (file) => {
         const content = await getCachedContent(file.path);
-        const { content: markdownContent, metadata } = parseMarkdown(content);
+        if (!('content' in content)) {
+          throw new Error('No content found in file');
+        }
+        const decodedContent = Buffer.from(content.content, 'base64').toString('utf-8');
+        const { content: markdownContent, metadata } = parseMarkdown(decodedContent);
         const readingTime = calculateReadingTime(markdownContent);
 
         return {
@@ -186,7 +190,11 @@ export async function getMarkdownFile(path: string): Promise<MarkdownFile> {
 
   try {
     const content = await getCachedContent(path);
-    const { content: markdownContent, metadata } = parseMarkdown(content);
+    if (!('content' in content)) {
+      throw new Error('No content found in file');
+    }
+    const decodedContent = Buffer.from(content.content, 'base64').toString('utf-8');
+    const { content: markdownContent, metadata } = parseMarkdown(decodedContent);
     const readingTime = calculateReadingTime(markdownContent);
 
     return {
