@@ -2,6 +2,7 @@ import { getMarkdownFile, getMarkdownFiles } from '@/lib/github';
 import { parseMarkdown } from '@/lib/markdown';
 import PostContent from '@/components/PostContent';
 import { RateLimitError } from '@/lib/rate-limiter';
+import { notFound } from 'next/navigation';
 
 // Revalidate the page every hour
 export const revalidate = 3600;
@@ -12,10 +13,17 @@ interface PostPageProps {
   };
 }
 
-export default async function PostPage({ params }: PostPageProps) {
+export default async function PostPage(props: PostPageProps) {
+  const resolvedParams = await props.params;
+  const path = Array.isArray(resolvedParams.path) ? resolvedParams.path[0] : resolvedParams.path;
+
+  if (!path) {
+    notFound();
+  }
+
   try {
     const [file, files] = await Promise.all([
-      getMarkdownFile(params.path),
+      getMarkdownFile(path),
       getMarkdownFiles(),
     ]);
 
@@ -26,7 +34,7 @@ export default async function PostPage({ params }: PostPageProps) {
         <PostContent
           content={content}
           files={files}
-          currentPath={params.path}
+          currentPath={path}
           currentFile={file}
         />
       </main>
