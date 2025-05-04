@@ -82,7 +82,7 @@ function extractTitleFromContent(content: string): string | null {
   return null;
 }
 
-let isLocalMode = false;
+let isLocalMode = true; // Default to local mode
 
 export function setLocalMode(enabled: boolean) {
   isLocalMode = enabled;
@@ -98,48 +98,40 @@ async function getLocalFiles(): Promise<MarkdownFile[]> {
       const filePath = path.join(sampleDir, file);
       const content = fs.readFileSync(filePath, 'utf-8');
       const { content: markdownContent, metadata } = parseMarkdown(content);
-      const headings = extractHeadings(markdownContent);
-      const title = headings.find(h => h.level === 1)?.text || file.replace('.md', '');
-      
-      // Extract date from filename (YYYY-MM-DD) or use default
-      const dateMatch = file.match(/^(\d{4}-\d{2}-\d{2})/);
-      const date = dateMatch ? dateMatch[1] : '1970-01-01';
+      const readingTime = calculateReadingTime(markdownContent);
       
       return {
         name: file,
         path: file,
         content: markdownContent,
-        title,
-        date,
+        title: metadata.title || extractTitleFromContent(markdownContent) || file.replace('.md', ''),
+        date: metadata.date || extractDateFromFilename(file) || new Date().toISOString(),
         labels: metadata.labels || [],
-        readingTime: calculateReadingTime(markdownContent)
+        readingTime,
       };
     });
 }
 
 async function getLocalFile(filePath: string): Promise<MarkdownFile> {
-  const fullPath = path.join(process.cwd(), 'src', 'sample-files', filePath);
+  const sampleDir = path.join(process.cwd(), 'src', 'sample-files');
+  const fullPath = path.join(sampleDir, filePath);
+  
   if (!fs.existsSync(fullPath)) {
     throw new Error(`File not found: ${filePath}`);
   }
-  
+
   const content = fs.readFileSync(fullPath, 'utf-8');
   const { content: markdownContent, metadata } = parseMarkdown(content);
-  const headings = extractHeadings(markdownContent);
-  const title = headings.find(h => h.level === 1)?.text || filePath.replace('.md', '');
-  
-  // Extract date from filename (YYYY-MM-DD) or use default
-  const dateMatch = filePath.match(/^(\d{4}-\d{2}-\d{2})/);
-  const date = dateMatch ? dateMatch[1] : '1970-01-01';
+  const readingTime = calculateReadingTime(markdownContent);
   
   return {
-    name: filePath,
+    name: path.basename(filePath),
     path: filePath,
     content: markdownContent,
-    title,
-    date,
+    title: metadata.title || extractTitleFromContent(markdownContent) || path.basename(filePath, '.md'),
+    date: metadata.date || extractDateFromFilename(path.basename(filePath)) || new Date().toISOString(),
     labels: metadata.labels || [],
-    readingTime: calculateReadingTime(markdownContent)
+    readingTime,
   };
 }
 
@@ -156,62 +148,34 @@ export async function getMarkdownFiles(): Promise<MarkdownFile[]> {
     });
 
     if (!Array.isArray(data)) {
-      throw new Error('Expected an array of files');
+      throw new Error('Expected directory content');
     }
 
-    const markdownFiles = data.filter(file => 
-      file.type === 'file' && file.name.endsWith('.md')
+    const markdownFiles = data.filter(item => 
+      item.type === 'file' && 
+      item.name.endsWith('.md')
     );
 
-    if (markdownFiles.length === 0) {
-      console.warn(`No markdown files found in the repository directory: ${dir}`);
-      return [];
-    }
-
-    const filesWithContent = await Promise.all(
+    return Promise.all(
       markdownFiles.map(async (file) => {
-        try {
-          const data = await getCachedContent(file.path);
+        const content = await getCachedContent(file.path);
+        const { content: markdownContent, metadata } = parseMarkdown(content);
+        const readingTime = calculateReadingTime(markdownContent);
 
-          if ('content' in data) {
-            const content = Buffer.from(data.content, 'base64').toString('utf-8');
-            const { data: frontmatter, content: markdownContent } = matter(content);
-            
-            // Try to get date from frontmatter, then from filename, or use default
-            const date = frontmatter.date || extractDateFromFilename(file.name) || '1970-01-01';
-            
-            // Try to get title from frontmatter, then from content
-            const title = frontmatter.title || extractTitleFromContent(content) || file.name.replace('.md', '');
-            
-            // Ensure labels is always an array
-            const labels = Array.isArray(frontmatter.labels) ? frontmatter.labels : [];
-            
-            return {
-              name: file.name,
-              path: file.path,
-              content: markdownContent,
-              date,
-              title,
-              labels,
-              readingTime: calculateReadingTime(markdownContent)
-            };
-          }
-
-          throw new Error('Failed to get file content');
-        } catch (error) {
-          console.error(`Error fetching content for ${file.path}:`, error);
-          return null;
-        }
+        return {
+          name: file.name,
+          path: file.path,
+          content: markdownContent,
+          title: metadata.title || extractTitleFromContent(markdownContent) || file.name.replace('.md', ''),
+          date: metadata.date || extractDateFromFilename(file.name) || new Date().toISOString(),
+          labels: metadata.labels || [],
+          readingTime,
+        };
       })
     );
-
-    return filesWithContent.filter((file): file is MarkdownFile => file !== null);
   } catch (error) {
     console.error('Error fetching markdown files:', error);
-    if (error instanceof Error && error.message.includes('Not Found')) {
-      throw new Error(`Repository or directory not found: ${owner}/${repo}/${dir}`);
-    }
-    throw error;
+    return [];
   }
 }
 
@@ -221,35 +185,21 @@ export async function getMarkdownFile(path: string): Promise<MarkdownFile> {
   }
 
   try {
-    const data = await getCachedContent(path);
+    const content = await getCachedContent(path);
+    const { content: markdownContent, metadata } = parseMarkdown(content);
+    const readingTime = calculateReadingTime(markdownContent);
 
-    if ('content' in data) {
-      const content = Buffer.from(data.content, 'base64').toString('utf-8');
-      const { data: frontmatter, content: markdownContent } = matter(content);
-      
-      // Try to get date from frontmatter, then from filename, or use default
-      const date = frontmatter.date || extractDateFromFilename(data.name) || '1970-01-01';
-      
-      // Try to get title from frontmatter, then from content
-      const title = frontmatter.title || extractTitleFromContent(content) || data.name.replace('.md', '');
-      
-      return {
-        name: data.name,
-        path: data.path,
-        content: markdownContent,
-        date,
-        title,
-        labels: frontmatter.labels || [],
-        readingTime: calculateReadingTime(markdownContent)
-      };
-    }
-
-    throw new Error('Failed to get file content');
+    return {
+      name: path.split('/').pop() || '',
+      path,
+      content: markdownContent,
+      title: metadata.title || extractTitleFromContent(markdownContent) || path.split('/').pop()?.replace('.md', '') || '',
+      date: metadata.date || extractDateFromFilename(path.split('/').pop() || '') || new Date().toISOString(),
+      labels: metadata.labels || [],
+      readingTime,
+    };
   } catch (error) {
     console.error(`Error fetching file ${path}:`, error);
-    if (error instanceof Error && error.message.includes('Not Found')) {
-      throw new Error(`File not found: ${path}`);
-    }
     throw error;
   }
 } 
