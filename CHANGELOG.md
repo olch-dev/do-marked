@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
 - Fixed markdown heading and list item styling by properly configuring CSS reset
 - Fixed date handling for files without dates by using January 1st, 1970 as default
 - Fixed label handling to ensure it's always an array 
+- Fixed table of contents navigation by adding proper heading IDs to markdown content
 
 ## [Unreleased]
 
@@ -156,6 +157,7 @@ All notable changes to this project will be documented in this file.
 - Fixed markdown heading and list item styling by properly configuring CSS reset
 - Fixed date handling for files without dates by using January 1st, 1970 as default
 - Fixed label handling to ensure it's always an array 
+- Fixed table of contents navigation by adding proper heading IDs to markdown content
 
 ## [0.5.0] - 2024-03-20
 
