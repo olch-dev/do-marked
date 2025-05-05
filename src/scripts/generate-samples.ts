@@ -69,6 +69,8 @@ function generateSampleFiles() {
 
   // Generate 100 sample files starting from 2025-05-01
   const startDate = new Date('2025-05-01');
+  let generatedCount = 0;
+  let skippedCount = 0;
   
   for (let i = 0; i < 100; i++) {
     const date = addDays(startDate, -i); // One file per day, going back in time
@@ -79,10 +81,18 @@ function generateSampleFiles() {
     const filename = `${formattedDate}-sample-post-${i + 1}.md`;
     const filepath = path.join(SAMPLE_DIR, filename);
     
-    fs.writeFileSync(filepath, content);
+    if (!fs.existsSync(filepath)) {
+      fs.writeFileSync(filepath, content);
+      generatedCount++;
+    } else {
+      skippedCount++;
+    }
   }
 
-  console.log('Generated 100 sample markdown files in', SAMPLE_DIR);
+  console.log(`Sample files generation complete:`);
+  console.log(`- Generated: ${generatedCount} new files`);
+  console.log(`- Skipped: ${skippedCount} existing files`);
+  console.log(`Directory: ${SAMPLE_DIR}`);
 }
 
 generateSampleFiles(); 

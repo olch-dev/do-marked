@@ -146,6 +146,16 @@ All notable changes to this project will be documented in this file.
   - Removed duplicate dark mode toggle from post header
   - Centralized theme control in top-right corner
   - Improved dark mode button styling
+- Reorganized configuration files into config directory
+  - Moved eslint.config.mjs to config/eslint.mjs
+  - Moved next.config.js to config/next.js
+  - Moved tsconfig.json to config/tsconfig.json
+  - Removed duplicate config files (postcss.config.mjs, tailwind.config.js)
+  - Updated package.json scripts to reference new config locations
+- Improved sample file generation
+  - Skip existing files instead of overwriting them
+  - Added detailed generation statistics
+  - Better console output with generation summary
 
 ### Fixed
 - Fixed reading time display in timeline
